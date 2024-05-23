@@ -66,6 +66,131 @@ for (i in 2:nrow(aarhus_data)) {
   }
   }
 ```
+Vi vil gerne kigge på alderen, cvilstanden og den geografiske for de forskellige erhverv af fattige:
+Tyende, Syge og vanføre, Bønder uden jord, Tiggere, Almissemodtagere, Aftægtsfolk/pensionerede, Arbejdsløse, Ufaglærte arbejdere og Svend eller i lære
+
+Vi starter med at lave et nyt dataset, hvor vi isolerer erhvervskategorien "Tyende" fra aarhus_data
+```{r}
+Tyende_data <- filter(aarhus_data,Erhvervskategori=="Tyende")
+```
+Nu laver vi to søjlediagrammer for de tyende fra datasættet. Den første viser fordelingen i tyendes alder samt deres civilstand
+```{r}
+#Alder og civilstand
+ggplot(Tyende_data,aes(alder))+
+  geom_bar(aes(fill = civilstand))+
+  theme(axis.text = element_text(angle = -90))
+#Geografisk placering
+ggplot(Tyende_data,aes(sogn))+
+  geom_bar()+
+  theme(axis.text = element_text(angle = -90))
+```
+Vi gør det samme med "Syge og vanføre"
+```{r}
+Sygeogvanføre_data <- filter(aarhus_data,Erhvervskategori=="Syge og vanføre")
+#Alder og civilstand
+ggplot(Sygeogvanføre_data,aes(alder))+
+  geom_bar(aes(fill = civilstand))+
+  theme(axis.text = element_text(angle = -90))
+#Geografisk placering
+ggplot(Sygeogvanføre_data,aes(sogn))+
+  geom_bar()+
+  theme(axis.text = element_text(angle = -90))
+```
+Bønder uden jord
+```{r}
+Bonde_u_jord <- filter(aarhus_data,Erhvervskategori=="Bonde uden jord")
+#Alder og civilstand
+ggplot(Bonde_u_jord,aes(alder))+
+  geom_bar(aes(fill = civilstand))+
+theme(axis.text = element_text(angle = -90))
+#Geografisk placering
+ggplot(Bonde_u_jord,aes(sogn))+
+  geom_bar()+
+  theme(axis.text = element_text(angle = -90))
+
+```
+Tiggere
+```{r}
+Tigger_data <- filter(aarhus_data,Erhvervskategori=="Tiggere")
+#Alder og civilstand
+ggplot(Tigger_data,aes(alder))+
+  geom_bar(aes(fill = civilstand))
+#Geografisk placering
+ggplot(Tigger_data,aes(sogn))+
+  geom_bar()
+```
+Almissemodtagere
+```{r}
+Almissemodtager_data <- filter(aarhus_data,Erhvervskategori=="Almissemodtager")
+#Alder og civilstand
+ggplot(Almissemodtager_data,aes(alder))+
+  geom_bar(aes(fill = civilstand))+
+  theme(axis.text = element_text(angle = -90))
+
+#Alder og Køn
+ggplot(Almissemodtager_data,aes(alder))+
+  geom_bar(aes(fill = koen))+
+  theme(axis.text = element_text(angle = -90))
+
+#Geografisk placering
+ggplot(Almissemodtager_data,aes(sogn))+
+  geom_bar()+
+  theme(axis.text = element_text(angle = -90))
+```
+Aftægtsfolk/pensionerede
+```{r}
+Aftægt_data <- filter(aarhus_data,Erhvervskategori=="Aftægtsfolk/pensionerede")
+#Alder og civilstand
+ggplot(Aftægt_data,aes(alder))+
+  geom_bar(aes(fill = civilstand))+
+  theme(axis.text = element_text(angle = -90))
+#Alder og køn
+ggplot(Aftægt_data,aes(alder))+
+  geom_bar(aes(fill = koen))+
+  theme(axis.text = element_text(angle = -90))
+#Geografisk placering
+ggplot(Aftægt_data,aes(sogn))+
+  geom_bar()+
+  theme(axis.text = element_text(angle = -90))
+
+```
+Arbejdsløse
+```{r}
+Uden_erhverv_data <- filter(aarhus_data,Erhvervskategori=="Uden erhverv")
+#Alder og civilstand
+ggplot(Uden_erhverv_data,aes(alder))+
+  geom_bar(aes(fill = civilstand))
+#Geografisk placering
+ggplot(Uden_erhverv_data,aes(sogn))+
+  geom_bar()+
+theme(axis.text = element_text(angle = -90))
+
+```
+Ufaglærte arbejdere
+```{r}
+Ufaglært_arbejder_data <- filter(aarhus_data,Erhvervskategori=="Ufaglært arbejder")
+#Alder og civilstand
+ggplot(Ufaglært_arbejder_data,aes(alder))+
+  geom_bar(aes(fill=civilstand))+
+  theme(axis.text = element_text(angle = -90))
+#Geografisk placering
+ggplot(Ufaglært_arbejder_data,aes(sogn))+
+  geom_bar()+
+  theme(axis.text = element_text(angle = -90))
+```
+Svend eller i lære
+```{r}
+Svend_lære_data <- filter(aarhus_data,Erhvervskategori=="Svend eller i Lære")
+#Alder og civilstand
+ggplot(Svend_lære_data,aes(alder))+
+  geom_bar(aes(fill = civilstand))
+#Geografisk placering
+ggplot(Svend_lære_data,aes(sogn))+
+  geom_bar()+
+  theme(axis.text = element_text(angle = -90))
+```
+
+
 
 
 ```{r}
@@ -73,7 +198,6 @@ Koordinator <- readxl::read_excel (here("data_fælles","Sogn_Koordinator.xlsx"))
 Aarhus_data_K <- aarhus_data
 Aarhus_data_K <-  left_join(aarhus_data, Koordinator, by = "sogn")
 ```
-
 
 
 
