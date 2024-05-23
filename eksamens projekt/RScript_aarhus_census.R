@@ -57,6 +57,10 @@ Koordinator <- read_excel(here("data","Sogn_Koordinator.xlsx"))
 Aarhus_data_K <- aarhus_data
 Aarhus_data_K <-  left_join(aarhus_data, Koordinator, by = "sogn")
 
+<<<<<<< HEAD
+test2
+=======
 test3
 
 
+>>>>>>> a38b2fabe3445a266df0a8f47d288fe67a9ca1c3

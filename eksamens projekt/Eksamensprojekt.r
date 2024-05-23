@@ -122,3 +122,5 @@ library(here)
 Koordinater <- readxl::read_excel(here("data","Sogn_koordinater.xlsx"))
 aarhus_data_K <- aarhus_data
 aarhus_data_K <- left_join(aarhus_data,Koordinater,by="sogn")
+
+test1
