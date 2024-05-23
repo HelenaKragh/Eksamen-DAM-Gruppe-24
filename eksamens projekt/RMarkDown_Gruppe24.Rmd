@@ -5,26 +5,27 @@ date: "2024-05-23"
 output: html_document
 ---
 
-```{r setup, include=FALSE}
-```
-
-
 
 ```{r setup, include=FALSE}
 knitr::opts_chunk$set(echo = TRUE)
+
 dir.create("data")
 install.packages("tidyverse")
 install.packages("here")
+install.packages("dplyr")
+install.packages("tidyr")
+install.packages("ggplot2")
+install.packages("reader")
 library(tidyverse)
 library(here)
-aarhus_census <- read.csv(here("data","Dataset.csv"))
-install.packages("dplyr")
 library("dplyr")
-install.packages("tidyr")
 library(tidyr)
-install.packages("ggplot2")
 library("ggplot2")
+library("reader")
+
+aarhus_census <- read.csv(here("data_fælles","dataset_clean.csv"))
 ```
+
 
 ```{r}
 aarhus_data <- aarhus_census %>%
@@ -54,21 +55,21 @@ grepl("Opholds", famstand) ~ "Aftægtsfolk/pensionerede",
 TRUE ~ "Ukendt"
 
 ))
+```
 
+
+```{r}
 for (i in 2:nrow(aarhus_data)) {
   if(aarhus_data$famstand[i] =="Hans Kone"){
   aarhus_data$Erhvervskategori[i]<- 
     aarhus_data$Erhvervskategori[i-1]
   }
   }
+```
 
-install.packages("reader")
-library("reader")
-library(here)
 
+```{r}
 Koordinator <- read_excel(here("data","Sogn_Koordinator.xlsx"))
-
-
 Aarhus_data_K <- aarhus_data
 Aarhus_data_K <-  left_join(aarhus_data, Koordinator, by = "sogn")
 ```
