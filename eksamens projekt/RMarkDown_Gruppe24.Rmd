@@ -58,14 +58,6 @@ TRUE ~ "Ukendt"
 ```
 
 
-```{r}
-for (i in 2:nrow(aarhus_data)) {
-  if(aarhus_data$famstand[i] =="Hans Kone"){
-  aarhus_data$Erhvervskategori[i]<- 
-    paste(aarhus_data$Erhvervskategori[i-1], "kone")
-  }
-  }
-```
 
 
 ```{r}
@@ -117,6 +109,7 @@ procent_civilstand_erhverv %>%
 ```
 
 
+<<<<<<< HEAD
 ##################### LEAFLET #######################
 
 For at visualisere hvor de fattige levede, har vi valgt at lave et kort over de sogne der indgår i aarhus_census datasettet. 
@@ -164,4 +157,36 @@ Koordinater %>%
 ```
 7) Fejl i visualiseringen: Koordinaterne der er indsamlet manuelt fra Google Maps er ved få tilfælde blevet taget fra det forkerte sogn (Se vestjylland). Dette er en menneskelig fejlkilde, der ville kunne forbedres ved en dybere grundighed. 
 #################################################
+=======
+
+```{r}
+
+
+#graf sogn og erhverv
+
+procent_alrø_erhverv <- aarhus_data %>% 
+  filter(sogn == "Alrø") %>% 
+  count(sogn, Erhvervskategori) %>% 
+  group_by(Erhvervskategori) %>% 
+  mutate(alrø_procent = (n/sum(procent_alrø_erhverv$n))*100, round(alrø_procent, digits = 2))
+
+#gem grafen som png
+alroe_erhverv_graf <- procent_alrø_erhverv %>% 
+  ggplot(aes(x = Erhvervskategori, y = alrø_procent)) + 
+  geom_bar(stat = "identity") +
+  geom_text(aes(label = round(alrø_procent, digits = 2), vjust = -0.5)) + 
+  theme(axis.text.x = element_text(angle = -45, hjust = 0)) +
+  labs(title = "Procentfordeling af erhverv i Alrø Sogn",
+       x = "Erhvervskategori",
+       y = "Procent") 
+
+ggsave(alroe_erhverv_graf, )
+```
+
+
+
+```{r}
+
+```
+>>>>>>> ba666976493a8645c01a8ae696bf16d04912d4cd
 
