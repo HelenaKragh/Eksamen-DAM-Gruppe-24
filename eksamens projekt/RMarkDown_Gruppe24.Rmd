@@ -117,3 +117,51 @@ procent_civilstand_erhverv %>%
 ```
 
 
+##################### LEAFLET #######################
+
+For at visualisere hvor de fattige levede, har vi valgt at lave et kort over de sogne der indgår i aarhus_census datasettet. 
+
+1) Første step er at indlæse library "leaflet", som er R-studios kortfunktion, og library(readxl), for at kunne indlæse excelfilen
+
+2) Dernæst indlæses dataen indeholdende koordinaterne til hvert sogn. 
+
+
+```{r}
+library(leaflet)
+library(readxl)
+Sogn_Koordinater_sidste <- read_excel("data/Sogn_Koordinater_sidste.xlsx", 
+                                      col_types = c("text", "numeric", "numeric"))
+View(Sogn_Koordinater_sidste)
+
+```
+3) Vi vil af med videnskabelig notation, da koordinaterne skal være numerisk noteret, og da de i processen ved indlæsningen blev "usunde" i vores dataframe. 
+
+```{r}
+options(scipen = 999)
+```
+
+4) Derudover kan vi se i vores dataframe, at sognet "Gylling" stod usundt i cellen for longitute ift. resten af værdierne i kolonnen. Derfor vil vi lokalisere cellen for at rette fejlen. 
+
+```{r}
+Koordinater[28,][[3]] <- 10.1620478
+```
+
+5) Nu plotter vi vores leafletkort med markers, der fortæller navnet på sognet og informationer fra en ny kolonne i dataframet kaldet "content": 
+
+```{r}
+Koordinater <- Koordinater %>% 
+  mutate(content_popup= paste0("<h1>", sogn, "</h1> Her kan stå noget om sognets fattige"))
+```
+
+6) Nu plotter vi kortet:
+
+```{r}
+Koordinater %>% 
+  leaflet() %>% 
+  addTiles() %>% 
+  addMarkers(~longitude,~latitude,
+             popup = ~content_popup)
+```
+7) Fejl i visualiseringen: Koordinaterne der er indsamlet manuelt fra Google Maps er ved få tilfælde blevet taget fra det forkerte sogn (Se vestjylland). Dette er en menneskelig fejlkilde, der ville kunne forbedres ved en dybere grundighed. 
+#################################################
+
