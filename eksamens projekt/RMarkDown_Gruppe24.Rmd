@@ -62,7 +62,7 @@ TRUE ~ "Ukendt"
 for (i in 2:nrow(aarhus_data)) {
   if(aarhus_data$famstand[i] =="Hans Kone"){
   aarhus_data$Erhvervskategori[i]<- 
-    aarhus_data$Erhvervskategori[i-1]
+    paste(aarhus_data$Erhvervskategori[i-1], "kone")
   }
   }
 ```
