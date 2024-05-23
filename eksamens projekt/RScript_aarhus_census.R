@@ -1,0 +1,59 @@
+dir.create("data")
+install.packages("tidyverse")
+install.packages("here")
+library(tidyverse)
+library(here)
+aarhus_census <- read.csv(here("data","Dataset.csv"))
+install.packages("dplyr")
+library("dplyr")
+install.packages("tidyr")
+library(tidyr)
+install.packages("ggplot2")
+library("ggplot2")
+
+
+aarhus_data <- aarhus_census %>%
+mutate(Erhvervskategori = case_when(
+erhverv %in% c("Geheime Raadjnde af Woyda", "Arbeyder i litteratur", "provst", "geheimeråd og stiftamtmand", "Baron, kammerherre og amtmand", "Præste enke", "Baronesse", "Bestyrer", "Grevinde og har 400 Rdr i Enke Pension", "Biskop", "Rådmand", "Betjent", "Billeteur", "Branddirektør", "Hendes Mand har fast Tjeneste", "Skolelærer", "Hospitalsforstander", "Cancellirådinde, - lever af det, hun har", "Candedatus Theologies", "Cappelan", "Consumptionsbetjent", "Contoirbetjent", "Degn", "Dommer", "Informator", "Inspecteur", "Enke Degn", "Enke Provstinde", "Etatsraadinde", "Jurist", "Sognepræst", "Kammerherre", "Kammerråd", "Foged", "Kornmåler", "Formuende", "Forpagter", "Landmaaler", "Lever af Formue", "Lever af sin Formue", "Forvalter", "Fuldmægtig", "stiftsphysicus", "stiftsrevisor", "Student", "Lægdsmand", "Læge", "Ved Landvæsenet", "Marqueur", "Told", "toldkasserer", "Organist") ~ "Embedsmænd, funktionære og liberale erhverv",
+erhverv%in% c("Apoteker", "Postmester, Kiøb- og Værtshusmusmand, Gæstgiver og prokurator", "Handler", "Brændevinsmand", "Købmand", "Værtshusmand") ~ "Købmænd",
+erhverv %in% c("Gartner", "Baber", "Bager", "Bagerenke", "Glarmester", "Rebslager", "Skoflikker", "Skomager", "Skrædder", "Håndværksmager", "Slagter", "Smed", "Snedker", "Kok", "Mester", "Teglbrænder") ~ "Håndværksmestre",
+erhverv %in% c("Apotekerdreng", "Assistent", "Garver", "Skoleelev", "Giør Stoele", "Gjørtler", "Blegmand", "Blikkenslager", "Bogbinder", "Byens tambour", "Bødker", "Hugger", "I Lære", "Drejer", "Farver", "Favn Brænde Kiøer", "Mahler og Gartner", "Tømrer", "Svend") ~ "Svend eller i Lære",
+erhverv %in% c( "Gadekører", "Hjulmand", "klubvært", "Kromand", "Kudsk", "Forridder", "Vognmand", "Opvarterske for de syge") ~ "Avlsmænd, vognmænd og værtsholdere",
+erhverv %in% c("Skipper", "Fiskemester ved grevskabet Frijsenborg", "Fisker", "Lods", "Matros") ~ "Skippere, jægere, fiskere",
+erhverv %in% c("Graver", "Arbejder ved Canalen", "Går med bagerkurven", "Spinder", "Rådstuebud", "Baademand", "Skovridder", "Hyrde", "Høker", "Skærsliber", "Jordemoder", "Examineret Foster Moder", "Kalkslager", "Klokker", "Stadsmusikant", "Krambodsdreng", "Stenkløver og -hugger, beboer et Markhuus, er Landeværnsmand", "Lever af at stampe Vadmel", "Fostermoder", "Stenpikker", "Lever af sit Arbejde", "Faar Løn", "strømpevæver", "Væver", "Vægter", "Volunteur", "Læser for Børn i Byen", "strøekone ved Domkirken", "Vaskekone", "Substitut", "Syerske", "Mejerske", "Tærsker", "Træskomand", "Natmand", "Trykker", "Tobaksspinder", "Nærer sig ved Haandarbejde") ~ "Ufaglært arbejder",
+erhverv %in% c("General Krigs Commisair, Rigs-Greve", "Skytte", "Rytter", "Soldat", "fhv. militærmand med årlig pension", "Overordnet Soldat") ~ "Militært personel",
+erhverv %in% c("Afskediget", "Antagen til opdragelse", "Besvangret", "Enke", "Fattig", "formedels sin solgte gaard", "Ledig", "Lever af sine midler", "Opdrages i huset") ~ "Uden erhverv",
+erhverv %in% c("Rygter paa Gersdorrslund", "Huusholderske", "Stuekone", "Tyende", "Tjener Familie") ~ "Tyende",
+erhverv %in% c("Aftægtsfolk", "Pension", "Frit underholdt", "Logerende", "Understøtter Familiemedlem", "Understøttelse af Private", "Understøttelse af Familie", "nyder Ophold", "nyder Ophold af gaarden") ~ "Aftægtsfolk/pensionerede",
+erhverv %in% c("Proprietair", "Har en Mølle i Fæste", "Boelsmand", "Bonde og Gaardbeboer", "Huusmand", "Huusmand med Jord", "Huusmand og andet Erhverv", "Enke med Jord", "Stamherre", "Møller") ~ "Bonde med jord",
+erhverv %in% c("Daglejer", "Inderste", "Jordløs Huusmand") ~ "Bonde uden jord",
+erhverv %in% c("Hospitalslem", "Vanvittig") ~ "Syge og vanføre",
+erhverv %in% c("Tigger") ~ "Tiggere",
+erhverv %in% c("Nyder Almisse") ~ "Almissemodtager",
+
+famstand%in% c("Tyende") ~ "Tyende",
+grepl("opholds", famstand) ~ "Aftægtsfolk/pensionerede",
+grepl("Opholds", famstand) ~ "Aftægtsfolk/pensionerede",
+
+
+TRUE ~ "Ukendt"
+
+))
+
+for (i in 2:nrow(aarhus_data)) {
+  if(aarhus_data$famstand[i] =="Hans Kone"){
+  aarhus_data$Erhvervskategori[i]<- 
+    aarhus_data$Erhvervskategori[i-1]
+  }
+  }
+
+install.packages("reader")
+library("reader")
+library(here)
+
+Koordinator <- read_excel(here("data","Sogn_Koordinator.xlsx"))
+
+
+Aarhus_data_K <- aarhus_data
+Aarhus_data_K <-  left_join(aarhus_data, Koordinator, by = "sogn")
+
