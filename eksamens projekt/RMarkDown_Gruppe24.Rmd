@@ -9,13 +9,13 @@ output: html_document
 ```{r setup, include=FALSE}
 knitr::opts_chunk$set(echo = TRUE)
 
-dir.create("data")
-install.packages("tidyverse")
-install.packages("here")
-install.packages("dplyr")
-install.packages("tidyr")
-install.packages("ggplot2")
-install.packages("reader")
+#dir.create("data")
+#install.packages("tidyverse")
+#install.packages("here")
+#install.packages("dplyr")
+#install.packages("tidyr")
+#install.packages("ggplot2")
+#install.packages("reader")
 library(tidyverse)
 library(here)
 library("dplyr")
@@ -58,6 +58,7 @@ TRUE ~ "Ukendt"
 ```
 
 
+<<<<<<< HEAD
 ```{r}
 for (i in 2:nrow(aarhus_data)) {
   if(aarhus_data$famstand[i] =="Hans Kone"){
@@ -191,6 +192,8 @@ ggplot(Svend_lære_data,aes(sogn))+
 ```
 
 
+=======
+>>>>>>> b964727ff37c1c90ca6e4bbf96faadd1164c2381
 
 
 ```{r}
@@ -240,4 +243,75 @@ procent_civilstand_erhverv %>%
 
 ```
 
+
+
+```{r}
+
+
+#graf sogn og erhverv
+
+procent_alrø_erhverv <- aarhus_data %>% 
+  filter(sogn == "Alrø") %>% 
+  count(sogn, Erhvervskategori) %>% 
+  group_by(Erhvervskategori)
+  
+procent_alrø_erhverv <- procent_alrø_erhverv %>%   
+  mutate(alrø_procent = (n/sum(procent_alrø_erhverv$n))*100, round(alrø_procent, digits = 2))
+
+#gem grafen som png
+alroe_erhverv_graf <- procent_alrø_erhverv %>% 
+  ggplot(aes(x = Erhvervskategori, y = alrø_procent)) + 
+  geom_bar(stat = "identity") +
+  geom_text(aes(label = round(alrø_procent, digits = 2), vjust = -0.4)) + 
+  theme(axis.text.x = element_text(angle = -45, hjust = 0)) +
+  labs(title = "Procentfordeling af erhverv i Alrø Sogn",
+       x = "Erhvervskategori",
+       y = "Procent") 
+
+ggsave(alroe_erhverv_graf, filename = "graphics/sogn_graphics/alroe.png", device = png, width = 20, height = 15, units = "cm" )
+```
+
+# forlooping over 113 parishes
+# ret årshus købstad til stort k
+```{r}
+Koordinator[112,1] <- "Århus Købstad"
+
+Koordinator[72,1] <-  "Skanderborg Købstad"
+```
+
+```{r}
+for (parish in Koordinator$sogn) {
+  print(parish)
+  procent_erhverv_sogn <- aarhus_data %>% 
+  filter(sogn == parish) %>% 
+  count(sogn, Erhvervskategori) %>% 
+  group_by(Erhvervskategori)
+  
+  procent_erhverv_sogn <- procent_erhverv_sogn %>%   
+  mutate(sogn_procent = (n/sum(procent_erhverv_sogn$n))*100, round(sogn_procent, digits = 2))
+  
+  sogn_erhverv_graf <- procent_erhverv_sogn %>% 
+  ggplot(aes(x = Erhvervskategori, y = sogn_procent)) + 
+  geom_bar(stat = "identity") +
+  geom_text(aes(label = round(sogn_procent, digits = 2), vjust = -0.4)) + 
+  theme(axis.text.x = element_text(angle = -45, hjust = 0)) +
+  labs(title = paste0("Procentfordeling af erhverv i ", parish, " sogn"),
+       x = "Erhvervskategori",
+       y = "Procent") 
+  
+  filename_parish <- str_replace(parish, regex("Å", ignore_case = TRUE), "aa") %>% 
+    str_replace(regex("Ø", ignore_case = TRUE), "oe") %>% 
+    str_replace(regex("Æ", ignore_case = TRUE), "ae") %>% 
+    str_replace(regex(" ", ignore_case = TRUE), "_") %>% 
+    str_to_lower()
+    
+print(filename_parish)  
+  ggsave(sogn_erhverv_graf, filename = paste0("graphics/sogn_graphics/", filename_parish, ".png"), device = png, width = 20, height = 15, units = "cm" )
+}
+  
+
+
+
+
+```
 
