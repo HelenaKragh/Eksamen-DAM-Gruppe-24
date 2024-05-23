@@ -120,7 +120,7 @@ ggplot(Tigger_data,aes(alder))+
 ggplot(Tigger_data,aes(sogn))+
   geom_bar()
 ```
-Almissemodtagere
+Almissemodtagere her laver vi også et diagram med alder og køn
 ```{r}
 Almissemodtager_data <- filter(aarhus_data,Erhvervskategori=="Almissemodtager")
 #Alder og civilstand
@@ -138,7 +138,7 @@ ggplot(Almissemodtager_data,aes(sogn))+
   geom_bar()+
   theme(axis.text = element_text(angle = -90))
 ```
-Aftægtsfolk/pensionerede
+Aftægtsfolk/pensionerede vi laver også et med alder og køn
 ```{r}
 Aftægt_data <- filter(aarhus_data,Erhvervskategori=="Aftægtsfolk/pensionerede")
 #Alder og civilstand
@@ -161,18 +161,26 @@ Uden_erhverv_data <- filter(aarhus_data,Erhvervskategori=="Uden erhverv")
 #Alder og civilstand
 ggplot(Uden_erhverv_data,aes(alder))+
   geom_bar(aes(fill = civilstand))
+#Alder og køn
+ggplot(Uden_erhverv_data,aes(alder))+
+  geom_bar(aes(fill = koen))+
+  theme(axis.text = element_text(angle = -90))
 #Geografisk placering
 ggplot(Uden_erhverv_data,aes(sogn))+
   geom_bar()+
 theme(axis.text = element_text(angle = -90))
 
 ```
-Ufaglærte arbejdere
+Ufaglærte arbejdere og et med alder og køn
 ```{r}
 Ufaglært_arbejder_data <- filter(aarhus_data,Erhvervskategori=="Ufaglært arbejder")
 #Alder og civilstand
 ggplot(Ufaglært_arbejder_data,aes(alder))+
   geom_bar(aes(fill=civilstand))+
+  theme(axis.text = element_text(angle = -90))
+#Alder og køn
+ggplot(Ufaglært_arbejder_data,aes(alder))+
+  geom_bar(aes(fill = koen))+
   theme(axis.text = element_text(angle = -90))
 #Geografisk placering
 ggplot(Ufaglært_arbejder_data,aes(sogn))+
