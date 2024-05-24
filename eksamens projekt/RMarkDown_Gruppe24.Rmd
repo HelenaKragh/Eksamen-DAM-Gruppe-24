@@ -63,12 +63,22 @@ TRUE ~ "Ukendt"
 <<<<<<< HEAD
 ```{r}
 for (i in 2:nrow(aarhus_data)) {
-  if(aarhus_data$famstand[i] =="Hans Kone"){
+  if(aarhus_data$famstand[i] == "Hans Kone" && aarhus_data$Erhvervskategori[i-1]== "Bonde med jord"){
   aarhus_data$Erhvervskategori[i]<- 
-    paste(aarhus_data$Erhvervskategori[i-1], "kone")
+    paste(aarhus_data$Erhvervskategori[i-1])
   }
   }
 ```
+
+```{r}
+for (i in 2:nrow(aarhus_data)) {
+  if(aarhus_data$famstand[i] == "Hans Kone" && aarhus_data$Erhvervskategori[i-1]== "Bonde uden jord"){
+  aarhus_data$Erhvervskategori[i]<- 
+    paste(aarhus_data$Erhvervskategori[i-1])
+  }
+  }
+```
+
 
 #grafer over fordeling af køn på erhverv
 
