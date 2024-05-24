@@ -82,7 +82,7 @@ for (i in 2:nrow(aarhus_data)) {
 
 #grafer over fordeling af køn på erhverv
 
-```{r}
+```{r, echo=FALSE}
 procent_køn_erhverv <- aarhus_data %>%
   filter(koen != "") %>% 
   count(koen, Erhvervskategori) %>% 
@@ -258,7 +258,7 @@ ggplot(Svend_lære_data,aes(sogn))+
 #Klargøring til at lave kort
 
 
-```{r}
+```{r, include=FALSE, warning=FALSE}
 Koordinater <- readxl::read_excel (here("data_fælles","Sogn_koordinater_1.xlsx"),                                      col_types = c("text", "numeric", "numeric"))
 
 View(Koordinater)
@@ -339,7 +339,7 @@ Koordinater[72,1] <-  "Skanderborg Købstad"
 # forlooping over 113 parishes
 #tilføjelse af sogn-navne med små forbogstaver og uden danske bogstaver 
 
-```{r}
+```{r, include=FALSE, message=FALSE}
 
 parish_filename_relation <- tibble(sogn = character(), fil = character())
 
