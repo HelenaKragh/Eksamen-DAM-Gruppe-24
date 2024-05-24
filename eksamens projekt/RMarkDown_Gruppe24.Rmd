@@ -299,13 +299,7 @@ Koordinater <- Koordinater %>%
 
 6) Nu plotter vi kortet:
 
-```{r}
-Koordinater %>% 
-  leaflet() %>% 
-  addTiles() %>% 
-  addMarkers(~longitude,~latitude,
-             popup = ~content_popup)
-```
+
 
 #Eksempel på skabelse af graf m erhvervsfodeling i sognet
 ```{r}
@@ -451,6 +445,15 @@ tilføjelse af "billede" af graf til popup
 
 Koordinater <- Koordinater %>%
 
-  mutate(content_popup= paste0("<h1>", sogn, "</h1> Her TEKST", '<br>', '<a href="', img_link, '">', '<img src="', img_link,'" width="200">', '</a> <br>'))
+  mutate(content_popup= paste0("<h1>", sogn, "</h1> Diagram", '<br>', '<a href="', img_link, '">', '<img src="', img_link,'" width="600">', '</a> <br>'))
 
+```
+
+
+```{r}
+Koordinater %>% 
+  leaflet() %>% 
+  addTiles() %>% 
+  addMarkers(~longitude,~latitude,
+             popup = ~content_popup)
 ```
