@@ -249,7 +249,7 @@ ggplot(Svend_lære_data,aes(sogn))+
 
 
 ```{r}
-Koordinater <- readxl::read_excel (here("data_fælles","Sogn_Koordinater.xlsx"),                                      col_types = c("text", "numeric", "numeric"))
+Koordinater <- readxl::read_excel (here("data_fælles",""),                                      col_types = c("text", "numeric", "numeric"))
 
 View(Koordinater)
 
