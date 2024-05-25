@@ -124,18 +124,14 @@ procent_civilstand_erhverv %>%
 
 # Søjlediagrammer med fattige
 
-Vi vil gerne kigge på alderen, cvilstanden og den geografiske placering for de forskellige erhverv af fattige:
+Vi vil gerne kigge bl.a. på alderen, cvilstanden og den geografiske placering for de forskellige erhverv af fattige:
 Tyende, Syge og vanføre, Bønder uden jord, Tiggere, Almissemodtagere, Aftægtsfolk/pensionerede, Arbejdsløse, Ufaglærte arbejdere og Svend eller i lære
 
-Vi starter med at lave et nyt dataset, hvor vi isolerer erhvervskategorien "Tyende" fra aarhus_data
+Vi starter med at lave et nyt dataset, hvor vi isolerer erhvervskategorien "Tyende" fra aarhus_data. Derefter laver vi to søjlediagrammer for de tyende fra datasættet. Den første viser fordelingen i tyendes alder samt deres civilstand
 
 ```{r}
 Tyende_data <- filter(aarhus_data,Erhvervskategori=="Tyende")
-```
 
-Nu laver vi to søjlediagrammer for de tyende fra datasættet. Den første viser fordelingen i tyendes alder samt deres civilstand
-
-```{r}
 #Alder og civilstand
 ggplot(Tyende_data,aes(alder))+
   geom_bar(aes(fill = civilstand))+
@@ -146,7 +142,8 @@ ggplot(Tyende_data,aes(sogn))+
   theme(axis.text = element_text(angle = -90))
 ```
 
-Vi gør det samme med Syge og vanføre:
+
+Vi gør det samme med Syge og vanføre. Her er det også interessant at kigge på "erhverv," for at sammenligne de to grupper "vanvittig" og "hospitalsem", som falder ind under overkaterogiseringen:
 
 ```{r}
 Sygeogvanføre_data <- filter(aarhus_data,Erhvervskategori=="Syge og vanføre")
@@ -154,9 +151,9 @@ Sygeogvanføre_data <- filter(aarhus_data,Erhvervskategori=="Syge og vanføre")
 ggplot(Sygeogvanføre_data,aes(alder))+
   geom_bar(aes(fill = civilstand))+
   theme(axis.text = element_text(angle = -90))
-#Geografisk placering
+#Geografisk placering og erhverv
 ggplot(Sygeogvanføre_data,aes(sogn))+
-  geom_bar()+
+  geom_bar(aes(fill = erhverv))+
   theme(axis.text = element_text(angle = -90))
 ```
 
@@ -184,7 +181,7 @@ ggplot(Tigger_data,aes(alder))+
   geom_bar(aes(fill = civilstand))
 #Geografisk placering
 ggplot(Tigger_data,aes(sogn))+
-  geom_bar()
+  geom_bar(aes(fill = koen))
 ```
 
 Almissemodtagere: Her laver vi også et diagram med alder og køn
@@ -219,9 +216,9 @@ ggplot(Aftægt_data,aes(alder))+
 ggplot(Aftægt_data,aes(alder))+
   geom_bar(aes(fill = koen))+
   theme(axis.text = element_text(angle = -90))
-#Geografisk placering
+#Geografisk placering og erhverv
 ggplot(Aftægt_data,aes(sogn))+
-  geom_bar()+
+  geom_bar(aes(fill = erhverv))+
   theme(axis.text = element_text(angle = -90))
 
 ```
@@ -232,14 +229,14 @@ Arbejdsløse:
 Uden_erhverv_data <- filter(aarhus_data,Erhvervskategori=="Uden erhverv")
 #Alder og civilstand
 ggplot(Uden_erhverv_data,aes(alder))+
-  geom_bar(aes(fill = civilstand))
+  geom_bar(aes(fill = erhverv))
 #Alder og køn
 ggplot(Uden_erhverv_data,aes(alder))+
   geom_bar(aes(fill = koen))+
   theme(axis.text = element_text(angle = -90))
-#Geografisk placering
+#Geografisk placering og civilstand
 ggplot(Uden_erhverv_data,aes(sogn))+
-  geom_bar()+
+  geom_bar(aes(fill = civilstand))+
 theme(axis.text = element_text(angle = -90))
 
 ```
