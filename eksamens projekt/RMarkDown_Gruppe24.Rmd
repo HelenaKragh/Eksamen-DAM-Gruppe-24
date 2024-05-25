@@ -80,7 +80,7 @@ for (i in 2:nrow(aarhus_data)) {
 ```
 
 
-#grafer over fordeling af køn på erhverv
+# Grafer over fordeling af køn på erhverv
 
 ```{r, echo=FALSE}
 procent_køn_erhverv <- aarhus_data %>%
@@ -101,7 +101,7 @@ procent_køn_erhverv %>%
 ```
 
 
-#Civilstand fordeling på erhverv
+# Civilstand fordeling på erhverv
 
 ```{r}
 procent_civilstand_erhverv <- aarhus_data %>% 
@@ -122,14 +122,19 @@ procent_civilstand_erhverv %>%
 
 ```
 
-Vi vil gerne kigge på alderen, cvilstanden og den geografiske for de forskellige erhverv af fattige:
+# Søjlediagrammer med fattige
+
+Vi vil gerne kigge på alderen, cvilstanden og den geografiske placering for de forskellige erhverv af fattige:
 Tyende, Syge og vanføre, Bønder uden jord, Tiggere, Almissemodtagere, Aftægtsfolk/pensionerede, Arbejdsløse, Ufaglærte arbejdere og Svend eller i lære
 
 Vi starter med at lave et nyt dataset, hvor vi isolerer erhvervskategorien "Tyende" fra aarhus_data
+
 ```{r}
 Tyende_data <- filter(aarhus_data,Erhvervskategori=="Tyende")
 ```
+
 Nu laver vi to søjlediagrammer for de tyende fra datasættet. Den første viser fordelingen i tyendes alder samt deres civilstand
+
 ```{r}
 #Alder og civilstand
 ggplot(Tyende_data,aes(alder))+
@@ -140,7 +145,9 @@ ggplot(Tyende_data,aes(sogn))+
   geom_bar()+
   theme(axis.text = element_text(angle = -90))
 ```
-Vi gør det samme med "Syge og vanføre"
+
+Vi gør det samme med Syge og vanføre:
+
 ```{r}
 Sygeogvanføre_data <- filter(aarhus_data,Erhvervskategori=="Syge og vanføre")
 #Alder og civilstand
@@ -152,7 +159,9 @@ ggplot(Sygeogvanføre_data,aes(sogn))+
   geom_bar()+
   theme(axis.text = element_text(angle = -90))
 ```
-Bønder uden jord
+
+Bønder uden jord:
+
 ```{r}
 Bonde_u_jord <- filter(aarhus_data,Erhvervskategori=="Bonde uden jord")
 #Alder og civilstand
@@ -165,7 +174,9 @@ ggplot(Bonde_u_jord,aes(sogn))+
   theme(axis.text = element_text(angle = -90))
 
 ```
-Tiggere
+
+Tiggere:
+
 ```{r}
 Tigger_data <- filter(aarhus_data,Erhvervskategori=="Tiggere")
 #Alder og civilstand
@@ -175,7 +186,9 @@ ggplot(Tigger_data,aes(alder))+
 ggplot(Tigger_data,aes(sogn))+
   geom_bar()
 ```
-Almissemodtagere her laver vi også et diagram med alder og køn
+
+Almissemodtagere: Her laver vi også et diagram med alder og køn
+
 ```{r}
 Almissemodtager_data <- filter(aarhus_data,Erhvervskategori=="Almissemodtager")
 #Alder og civilstand
@@ -193,7 +206,9 @@ ggplot(Almissemodtager_data,aes(sogn))+
   geom_bar()+
   theme(axis.text = element_text(angle = -90))
 ```
-Aftægtsfolk/pensionerede vi laver også et med alder og køn
+
+Aftægtsfolk/pensionerede: Her laver vi også et diagram med alder og køn
+
 ```{r}
 Aftægt_data <- filter(aarhus_data,Erhvervskategori=="Aftægtsfolk/pensionerede")
 #Alder og civilstand
@@ -210,7 +225,9 @@ ggplot(Aftægt_data,aes(sogn))+
   theme(axis.text = element_text(angle = -90))
 
 ```
-Arbejdsløse
+
+Arbejdsløse:
+
 ```{r}
 Uden_erhverv_data <- filter(aarhus_data,Erhvervskategori=="Uden erhverv")
 #Alder og civilstand
@@ -226,7 +243,9 @@ ggplot(Uden_erhverv_data,aes(sogn))+
 theme(axis.text = element_text(angle = -90))
 
 ```
-Ufaglærte arbejdere og et med alder og køn
+
+Ufaglærte arbejdere: også med et digram med alder og køn
+
 ```{r}
 Ufaglært_arbejder_data <- filter(aarhus_data,Erhvervskategori=="Ufaglært arbejder")
 #Alder og civilstand
@@ -242,7 +261,9 @@ ggplot(Ufaglært_arbejder_data,aes(sogn))+
   geom_bar()+
   theme(axis.text = element_text(angle = -90))
 ```
-Svend eller i lære
+
+Svend eller i lære:
+
 ```{r}
 Svend_lære_data <- filter(aarhus_data,Erhvervskategori=="Svend eller i Lære")
 #Alder og civilstand
@@ -255,7 +276,7 @@ ggplot(Svend_lære_data,aes(sogn))+
 ```
 
 
-#Klargøring til at lave kort
+# Klargøring til at lave kort
 
 
 ```{r, include=FALSE, warning=FALSE}
@@ -269,7 +290,7 @@ Aarhus_data_K <- aarhus_data
 Aarhus_data_K <-  left_join(aarhus_data, Koordinater, by = "sogn")
 ```
 
-#kortet bliver lavet
+# Kortet bliver lavet
 
 
 <<<<<<< HEAD
@@ -300,8 +321,8 @@ Koordinater <- Koordinater %>%
 6) Nu plotter vi kortet:
 
 
+# Eksempel på skabelse af graf m erhvervsfodeling i sognet
 
-#Eksempel på skabelse af graf m erhvervsfodeling i sognet
 ```{r}
 
 
@@ -329,7 +350,8 @@ ggsave(alroe_erhverv_graf, filename = "graphics/sogn_graphics/alroe.png", device
 ```
 
 
-# ret problematiske navne i koordinater-tibble
+# Vi retter problematiske navne i koordinater-tibble
+
 ```{r}
 Koordinater[112,1] <- "Århus Købstad"
 
@@ -337,7 +359,7 @@ Koordinater[72,1] <-  "Skanderborg Købstad"
 ```
 
 # forlooping over 113 parishes
-#tilføjelse af sogn-navne med små forbogstaver og uden danske bogstaver 
+# tilføjelse af sogn-navne med små forbogstaver og uden danske bogstaver 
 
 ```{r, include=FALSE, message=FALSE}
 
@@ -413,7 +435,7 @@ parish_filename_relation <- parish_filename_relation %>%
 
 ```
 
-#tilføj de rigtige grafer til de rigtige sogn/koordinater
+Vi tilføjer de rigtige grafer til de rigtige sogn/koordinater
 
 ```{r}
 
@@ -425,7 +447,7 @@ Koordinater <- Koordinater %>%
 
 
  
-#popup med png-filer
+# popup med png-filer
 #link til GitHub Repositori med png-filer 
  
 
