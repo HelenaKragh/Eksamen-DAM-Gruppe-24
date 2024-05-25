@@ -45,7 +45,7 @@ erhverv %in% c("Rygter paa Gersdorrslund", "Huusholderske", "Stuekone", "Tyende"
 erhverv %in% c("Aftægtsfolk", "Pension", "Frit underholdt", "Logerende", "Understøtter Familiemedlem", "Understøttelse af Private", "Understøttelse af Familie", "nyder Ophold", "nyder Ophold af gaarden") ~ "Aftægtsfolk/pensionerede",
 erhverv %in% c("Proprietair", "Har en Mølle i Fæste", "Boelsmand", "Bonde og Gaardbeboer", "Huusmand", "Huusmand med Jord", "Huusmand og andet Erhverv", "Enke med Jord", "Stamherre", "Møller") ~ "Bonde med jord",
 erhverv %in% c("Daglejer", "Inderste", "Jordløs Huusmand") ~ "Bonde uden jord",
-erhverv %in% c("Hospitalslem", "Vanvittig") ~ "Syge og vanføre",
+erhverv %in% c("Hospitalslem", "Vanvittig","Vanfør") ~ "Syge og vanføre",
 erhverv %in% c("Tigger") ~ "Tiggere",
 erhverv %in% c("Nyder Almisse") ~ "Almissemodtager",
 
@@ -116,7 +116,7 @@ procent_civilstand_erhverv %>%
   theme(axis.text.x = element_text(angle = -45, hjust = 0)) +
   scale_fill_manual(values = c("tomato", "orange", "green3", "yellow", "purple", "dodgerblue")) +
   labs(title = "Procentfordeling af civilstand i erhvervskategorier",
-       fill = "Køn",
+       fill = "Civilstand",
        x = "Erhvervskategori",
        y = "Procent")  
 
@@ -127,7 +127,7 @@ procent_civilstand_erhverv %>%
 Vi vil gerne kigge bl.a. på alderen, cvilstanden og den geografiske placering for de forskellige erhverv af fattige:
 Tyende, Syge og vanføre, Bønder uden jord, Tiggere, Almissemodtagere, Aftægtsfolk/pensionerede, Arbejdsløse, Ufaglærte arbejdere og Svend eller i lære
 
-Vi starter med at lave et nyt dataset, hvor vi isolerer erhvervskategorien "Tyende" fra aarhus_data. Derefter laver vi to søjlediagrammer for de tyende fra datasættet. Den første viser fordelingen i tyendes alder samt deres civilstand
+Vi starter med at lave et nyt dataset, hvor vi isolerer erhvervskategorien "Tyende" fra aarhus_data. Derefter laver vi to søjlediagrammer for de tyende fra datasættet. Den første viser fordelingen i tyendes alder samt deres civilstand og den anden viser de tyendes geografiske placering samt kønsfordelingen.
 
 ```{r}
 Tyende_data <- filter(aarhus_data,Erhvervskategori=="Tyende")
@@ -136,9 +136,9 @@ Tyende_data <- filter(aarhus_data,Erhvervskategori=="Tyende")
 ggplot(Tyende_data,aes(alder))+
   geom_bar(aes(fill = civilstand))+
   theme(axis.text = element_text(angle = -90))
-#Geografisk placering
+#Geografisk placering og køn
 ggplot(Tyende_data,aes(sogn))+
-  geom_bar()+
+  geom_bar(aes(fill = koen))+
   theme(axis.text = element_text(angle = -90))
 ```
 
