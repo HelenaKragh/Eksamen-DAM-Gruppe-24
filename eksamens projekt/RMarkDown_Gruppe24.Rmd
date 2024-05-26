@@ -155,26 +155,34 @@ Tyende_data <- filter(aarhus_data,Erhvervskategori=="Tyende")
 #Alder og civilstand
 ggplot(Tyende_data,aes(alder))+
   geom_bar(aes(fill = civilstand))+
-  theme(axis.text = element_text(angle = -90))
+  theme(axis.text = element_text(angle = -90))+
+   labs(title = "Tyendes fordeling i alder og civilstand")
+
 #Geografisk placering og køn
 ggplot(Tyende_data,aes(sogn))+
   geom_bar(aes(fill = koen))+
-  theme(axis.text = element_text(angle = -90))
+  theme(axis.text = element_text(angle = -90))+
+   labs(title = "Tyendes fordeling i sogn og køn")
+    
 ```
 
 
 Vi gør det samme med Syge og vanføre. Her er det også interessant at kigge på "erhverv," for at sammenligne de to grupper "vanvittig" og "hospitalsem", som falder ind under overkaterogiseringen:
+
+
 
 ```{r}
 Sygeogvanføre_data <- filter(aarhus_data,Erhvervskategori=="Syge og vanføre")
 #Alder og civilstand
 ggplot(Sygeogvanføre_data,aes(alder))+
   geom_bar(aes(fill = civilstand))+
-  theme(axis.text = element_text(angle = -90))
+  theme(axis.text = element_text(angle = -90))+
+   labs(title = "Syge og vanføres fordeling i alder og civilstand")
 #Geografisk placering og erhverv
 ggplot(Sygeogvanføre_data,aes(sogn))+
   geom_bar(aes(fill = erhverv))+
-  theme(axis.text = element_text(angle = -90))
+  theme(axis.text = element_text(angle = -90))+
+  labs(title = "Syge og vanføres fordeling i sogn og erhverv")
 ```
 
 Bønder uden jord:
@@ -184,11 +192,13 @@ Bonde_u_jord <- filter(aarhus_data,Erhvervskategori=="Bonde uden jord")
 #Alder og civilstand
 ggplot(Bonde_u_jord,aes(alder))+
   geom_bar(aes(fill = civilstand))+
-theme(axis.text = element_text(angle = -90))
+theme(axis.text = element_text(angle = -90))+
+  labs(title = "Bønder uden jords fordeling i alder og civilstand")
 #Geografisk placering
 ggplot(Bonde_u_jord,aes(sogn))+
   geom_bar()+
-  theme(axis.text = element_text(angle = -90))
+  theme(axis.text = element_text(angle = -90))+
+  labs(title = "Bønder uden jords fordeling i sogn")
 
 ```
 
@@ -198,10 +208,12 @@ Tiggere:
 Tigger_data <- filter(aarhus_data,Erhvervskategori=="Tiggere")
 #Alder og civilstand
 ggplot(Tigger_data,aes(alder))+
-  geom_bar(aes(fill = civilstand))
+  geom_bar(aes(fill = civilstand))+
+  labs(title = "Tiggeres fordeling i alder og civilstand")
 #Geografisk placering
 ggplot(Tigger_data,aes(sogn))+
-  geom_bar(aes(fill = koen))
+  geom_bar(aes(fill = koen))+
+  labs(title = "Tiggeres fordeling i sogn og køn")
 ```
 
 Almissemodtagere: Her laver vi også et diagram med alder og køn
@@ -211,17 +223,20 @@ Almissemodtager_data <- filter(aarhus_data,Erhvervskategori=="Almissemodtager")
 #Alder og civilstand
 ggplot(Almissemodtager_data,aes(alder))+
   geom_bar(aes(fill = civilstand))+
-  theme(axis.text = element_text(angle = -90))
+  theme(axis.text = element_text(angle = -90))+
+  labs(title = "Almissemodtageres fordeling i alder og civilstand")
 
 #Alder og Køn
 ggplot(Almissemodtager_data,aes(alder))+
   geom_bar(aes(fill = koen))+
-  theme(axis.text = element_text(angle = -90))
+  theme(axis.text = element_text(angle = -90))+
+  labs(title = "Almissemodtageres fordeling i alder og køn")
 
 #Geografisk placering
 ggplot(Almissemodtager_data,aes(sogn))+
   geom_bar()+
-  theme(axis.text = element_text(angle = -90))
+  theme(axis.text = element_text(angle = -90))+
+  labs(title = "Almissemodtageres fordeling i sogn")
 ```
 
 Aftægtsfolk/pensionerede: Her laver vi også et diagram med alder og køn
@@ -231,15 +246,18 @@ Aftægt_data <- filter(aarhus_data,Erhvervskategori=="Aftægtsfolk/pensionerede"
 #Alder og civilstand
 ggplot(Aftægt_data,aes(alder))+
   geom_bar(aes(fill = civilstand))+
-  theme(axis.text = element_text(angle = -90))
+  theme(axis.text = element_text(angle = -90))+
+  labs(title = "Aftægtsfolk/pensioneredes fordeling i alder og civilstand")
 #Alder og køn
 ggplot(Aftægt_data,aes(alder))+
   geom_bar(aes(fill = koen))+
-  theme(axis.text = element_text(angle = -90))
+  theme(axis.text = element_text(angle = -90))+
+  labs(title = "Aftægtsfolk/pensioneredes fordeling i alder og køn")
 #Geografisk placering og erhverv
 ggplot(Aftægt_data,aes(sogn))+
   geom_bar(aes(fill = erhverv))+
-  theme(axis.text = element_text(angle = -90))
+  theme(axis.text = element_text(angle = -90))+
+  labs(title = "Aftægtsfolk/pensioneredes fordeling i sogn og erhverv")
 
 ```
 
@@ -249,15 +267,18 @@ Arbejdsløse:
 Uden_erhverv_data <- filter(aarhus_data,Erhvervskategori=="Uden erhverv")
 #Alder og civilstand
 ggplot(Uden_erhverv_data,aes(alder))+
-  geom_bar(aes(fill = erhverv))
+  geom_bar(aes(fill = erhverv))+
+  labs(title = "Arbejdsløses fordeling i alder og erhverv")
 #Alder og køn
 ggplot(Uden_erhverv_data,aes(alder))+
   geom_bar(aes(fill = koen))+
-  theme(axis.text = element_text(angle = -90))
+  theme(axis.text = element_text(angle = -90))+
+  labs(title = "Arbejdsløses fordeling i alder og koen")
 #Geografisk placering og civilstand
 ggplot(Uden_erhverv_data,aes(sogn))+
   geom_bar(aes(fill = civilstand))+
-theme(axis.text = element_text(angle = -90))
+theme(axis.text = element_text(angle = -90))+
+  labs(title = "Arbejdsløses fordeling i sogn og civilstand")
 
 ```
 
@@ -268,15 +289,18 @@ Ufaglært_arbejder_data <- filter(aarhus_data,Erhvervskategori=="Ufaglært arbej
 #Alder og civilstand
 ggplot(Ufaglært_arbejder_data,aes(alder))+
   geom_bar(aes(fill=civilstand))+
-  theme(axis.text = element_text(angle = -90))
+  theme(axis.text = element_text(angle = -90))+
+  labs(title = "Ufaglærtes fordeling i alder og civilstand")
 #Alder og køn
 ggplot(Ufaglært_arbejder_data,aes(alder))+
   geom_bar(aes(fill = koen))+
-  theme(axis.text = element_text(angle = -90))
+  theme(axis.text = element_text(angle = -90))+
+  labs(title = "Ufaglærtes fordeling i alder og køn")
 #Geografisk placering
 ggplot(Ufaglært_arbejder_data,aes(sogn))+
   geom_bar()+
-  theme(axis.text = element_text(angle = -90))
+  theme(axis.text = element_text(angle = -90))+
+  labs(title = "Ufaglærtes fordeling i sogn")
 ```
 
 Svend eller i lære:
@@ -285,11 +309,13 @@ Svend eller i lære:
 Svend_lære_data <- filter(aarhus_data,Erhvervskategori=="Svend eller i Lære")
 #Alder og civilstand
 ggplot(Svend_lære_data,aes(alder))+
-  geom_bar(aes(fill = civilstand))
+  geom_bar(aes(fill = civilstand))+
+  labs(title = "Svend eller i læres fordeling i alder og civilstand")
 #Geografisk placering
 ggplot(Svend_lære_data,aes(sogn))+
   geom_bar()+
-  theme(axis.text = element_text(angle = -90))
+  theme(axis.text = element_text(angle = -90))+
+  labs(title = "Svend eller i læres fordeling i sogn")
 ```
 
 
