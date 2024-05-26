@@ -139,7 +139,7 @@ ggplot(count_data,aes(x=Erhvervskategori,y = percentage))+
   geom_bar(stat = "identity")+
   geom_text(aes(label = round(percentage,1)), vjust=-0.5)+
   theme(axis.text = element_text(angle = -90),plot.margin = margin(0,20,-15,20))+
-  labs(y="Procent",title = "Erhvervskategori i procent")
+  labs(y="Procent",title = "Fordelingen af erhvervskategorier i procent")
 
 
 ```
