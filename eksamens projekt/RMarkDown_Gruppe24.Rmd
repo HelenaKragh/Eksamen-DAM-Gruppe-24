@@ -32,11 +32,11 @@ aarhus_census <- read.csv(here("data_fælles","dataset_clean.csv"))
 ```{r}
 aarhus_data <- aarhus_census %>%
 mutate(Erhvervskategori = case_when(
-erhverv %in% c("Geheime Raadjnde af Woyda", "Arbeyder i litteratur", "provst", "geheimeråd og stiftamtmand", "Baron, kammerherre og amtmand", "Præste enke", "Baronesse", "Bestyrer", "Grevinde og har 400 Rdr i Enke Pension", "Biskop", "Rådmand", "Betjent", "Billeteur", "Branddirektør", "Hendes Mand har fast Tjeneste", "Skolelærer", "Hospitalsforstander", "Cancellirådinde, - lever af det, hun har", "Candedatus Theologies", "Cappelan", "Consumptionsbetjent", "Contoirbetjent", "Degn", "Dommer", "Informator", "Inspecteur", "Enke Degn", "Enke Provstinde", "Etatsraadinde", "Jurist", "Sognepræst", "Kammerherre", "Kammerråd", "Foged", "Kornmåler", "Formuende", "Forpagter", "Landmaaler", "Lever af Formue", "Lever af sin Formue", "Forvalter", "Fuldmægtig", "stiftsphysicus", "stiftsrevisor", "Student", "Lægdsmand", "Læge", "Ved Landvæsenet", "Marqueur", "Told", "toldkasserer", "Organist") ~ "Embedsmænd, funktionære og liberale erhverv",
+erhverv %in% c("Geheime Raadjnde af Woyda", "Arbeyder i litteratur", "provst", "geheimeråd og stiftamtmand", "Baron, kammerherre og amtmand", "Præste enke", "Baronesse", "Bestyrer", "Grevinde og har 400 Rdr i Enke Pension", "Biskop", "Rådmand", "Betjent", "Billeteur", "Branddirektør", "Hendes Mand har fast Tjeneste", "Skolelærer", "Hospitalsforstander", "Cancellirådinde, - lever af det, hun har", "Candedatus Theologies", "Cappelan", "Consumptionsbetjent", "Contoirbetjent", "Degn", "Dommer", "Informator", "Inspecteur", "Enke Degn", "Enke Provstinde", "Etatsraadinde", "Jurist", "Sognepræst", "Kammerherre", "Kammerråd", "Foged", "Kornmåler", "Formuende", "Forpagter", "Landmaaler", "Lever af Formue", "Lever af sin Formue", "Forvalter", "Fuldmægtig", "stiftsphysicus", "stiftsrevisor", "Student", "Lægdsmand", "Læge", "Ved Landvæsenet", "Marqueur", "Told", "toldkasserer", "Organist") ~ "Embedsmænd mm.",
 erhverv%in% c("Apoteker", "Postmester, Kiøb- og Værtshusmusmand, Gæstgiver og prokurator", "Handler", "Brændevinsmand", "Købmand", "Værtshusmand") ~ "Købmænd",
 erhverv %in% c("Gartner", "Baber", "Bager", "Bagerenke", "Glarmester", "Rebslager", "Skoflikker", "Skomager", "Skrædder", "Håndværksmager", "Slagter", "Smed", "Snedker", "Kok", "Mester", "Teglbrænder") ~ "Håndværksmestre",
 erhverv %in% c("Apotekerdreng", "Assistent", "Garver", "Skoleelev", "Giør Stoele", "Gjørtler", "Blegmand", "Blikkenslager", "Bogbinder", "Byens tambour", "Bødker", "Hugger", "I Lære", "Drejer", "Farver", "Favn Brænde Kiøer", "Mahler og Gartner", "Tømrer", "Svend") ~ "Svend eller i Lære",
-erhverv %in% c( "Gadekører", "Hjulmand", "klubvært", "Kromand", "Kudsk", "Forridder", "Vognmand", "Opvarterske for de syge") ~ "Avlsmænd, vognmænd og værtsholdere",
+erhverv %in% c( "Gadekører", "Hjulmand", "klubvært", "Kromand", "Kudsk", "Forridder", "Vognmand", "Opvarterske for de syge") ~ "Avls- vogn og værtsmænd",
 erhverv %in% c("Skipper", "Fiskemester ved grevskabet Frijsenborg", "Fisker", "Lods", "Matros") ~ "Skippere, jægere, fiskere",
 erhverv %in% c("Graver", "Arbejder ved Canalen", "Går med bagerkurven", "Spinder", "Rådstuebud", "Baademand", "Skovridder", "Hyrde", "Høker", "Skærsliber", "Jordemoder", "Examineret Foster Moder", "Kalkslager", "Klokker", "Stadsmusikant", "Krambodsdreng", "Stenkløver og -hugger, beboer et Markhuus, er Landeværnsmand", "Lever af at stampe Vadmel", "Fostermoder", "Stenpikker", "Lever af sit Arbejde", "Faar Løn", "strømpevæver", "Væver", "Vægter", "Volunteur", "Læser for Børn i Byen", "strøekone ved Domkirken", "Vaskekone", "Substitut", "Syerske", "Mejerske", "Tærsker", "Træskomand", "Natmand", "Trykker", "Tobaksspinder", "Nærer sig ved Haandarbejde") ~ "Ufaglært arbejder",
 erhverv %in% c("General Krigs Commisair, Rigs-Greve", "Skytte", "Rytter", "Soldat", "fhv. militærmand med årlig pension", "Overordnet Soldat") ~ "Militært personel",
@@ -123,6 +123,26 @@ procent_civilstand_erhverv %>%
 ```
 
 # Søjlediagrammer med fattige
+
+I første omgang vil vi gerne lave en graf, der viser fordelingen af de forskellige erhvervskategorier, så vi også kan se fordelingen i de kategorier, hvor vi har vurderet, at de fattige befinder sig:
+
+```{r}
+
+count_data <- aarhus_data %>% 
+  group_by(Erhvervskategori) %>% 
+  summarise(count=n())
+
+count_data <- count_data %>% 
+  mutate(percentage=count/sum(count)*100)
+
+ggplot(count_data,aes(x=Erhvervskategori,y = percentage))+
+  geom_bar(stat = "identity")+
+  geom_text(aes(label = round(percentage,1)), vjust=-0.5)+
+  theme(axis.text = element_text(angle = -90),plot.margin = margin(0,20,-15,20))+
+  labs(y="Procent",title = "Erhvervskategori i procent")
+
+
+```
 
 Vi vil gerne kigge bl.a. på alderen, cvilstanden og den geografiske placering for de forskellige erhverv af fattige:
 Tyende, Syge og vanføre, Bønder uden jord, Tiggere, Almissemodtagere, Aftægtsfolk/pensionerede, Arbejdsløse, Ufaglærte arbejdere og Svend eller i lære
