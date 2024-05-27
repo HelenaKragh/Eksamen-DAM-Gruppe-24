@@ -177,9 +177,25 @@ ggplot(Tyende_data,aes(sogn))+
 ```
 
 
-Vi gør det samme med Syge og vanføre. Her er det også interessant at kigge på "erhverv," for at sammenligne de to grupper "vanvittig" og "hospitalsem", som falder ind under overkaterogiseringen:
+Vi gør det samme med den anden store kategori af fattige: Bønder uden jord: 
+
+```{r}
+Bonde_u_jord <- filter(aarhus_data,Erhvervskategori=="Bonde uden jord")
+#Alder
+ggplot(Bonde_u_jord,aes(alder))+
+  geom_bar()+
+theme(axis.text = element_text(angle = -90))+
+  labs(title = "Bønder uden jords fordeling i alder",y="Antal bønder uden jord")
+#Geografisk placering
+ggplot(Bonde_u_jord,aes(sogn))+
+  geom_bar()+
+  theme(axis.text = element_text(angle = -90))+
+  labs(title = "Bønder uden jords fordeling i sogn",y="Antal bønder uden jord")
+```
 
 
+Vi kigger også på at par andre af erhvervskategorierne:
+Syge og vanføre: Her er det også interessant at kigge på "erhverv," for at sammenligne de to grupper "vanvittig" og "hospitalsem", som falder ind under overkaterogiseringen:
 
 ```{r}
 Sygogvanfør_data <- filter(aarhus_data,Erhvervskategori=="Syg og vanfør")
@@ -194,25 +210,6 @@ ggplot(Sygogvanfør_data,aes(sogn))+
   theme(axis.text = element_text(angle = -90))+
   labs(title = "Syge og vanføres fordeling i sogn og erhverv",y="Antal syge og vanføre")
 ```
-
-Bønder uden jord:
-
-```{r}
-Bonde_u_jord <- filter(aarhus_data,Erhvervskategori=="Bonde uden jord")
-#Alder
-ggplot(Bonde_u_jord,aes(alder))+
-  geom_bar()+
-theme(axis.text = element_text(angle = -90))+
-  labs(title = "Bønder uden jords fordeling i alder",y="Antal bønder uden jord")
-#Geografisk placering
-ggplot(Bonde_u_jord,aes(sogn))+
-  geom_bar()+
-  theme(axis.text = element_text(angle = -90))+
-  labs(title = "Bønder uden jords fordeling i sogn",y="Antal bønder uden jord")
-
-```
-
-
 
 Almissemodtagere:
 
