@@ -194,8 +194,8 @@ ggplot(Bonde_u_jord,aes(sogn))+
 ```
 
 
-Vi kigger også på at par andre af erhvervskategorierne:
-Syge og vanføre: Her er det også interessant at kigge på "erhverv," for at sammenligne de to grupper "vanvittig" og "hospitalsem", som falder ind under overkaterogiseringen:
+Vi kigger også på at par andre af erhvervskategorierneSyge og vanføre: Her er det også interessant at kigge på "erhverv," for at sammenligne de to grupper "vanvittig" og "hospitalsem", som falder ind under overkaterogiseringen:
+
 
 ```{r}
 Sygogvanfør_data <- filter(aarhus_data,Erhvervskategori=="Syg og vanfør")
@@ -248,19 +248,9 @@ ggplot(Aftægt_data,aes(sogn))+
 Arbejdsløse:
 
 ```{r}
-Uden_erhverv_data <- filter(aarhus_data,Erhvervskategori=="Uden erhverv")
-#Alder og erhverv
-ggplot(Uden_erhverv_data,aes(alder))+
-  geom_bar(aes(fill = erhverv))+
-  labs(title = "Arbejdsløses fordeling i alder og erhverv",y="Antal arbejdsløse")
-
-#Geografisk placering 
-ggplot(Uden_erhverv_data,aes(sogn))+
-  geom_bar()+
-theme(axis.text = element_text(angle = -90))+
-  labs(title = "Arbejdsløses fordeling i sogn",y="Antal arbejdsløse")
-
 ```
+
+
 
 
 
