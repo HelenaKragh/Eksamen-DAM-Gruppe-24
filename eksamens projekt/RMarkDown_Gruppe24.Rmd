@@ -157,7 +157,7 @@ ggplot(aarhus_data,aes(sogn))+
 Vi vil gerne kigge bl.a. på alderen, cvilstanden og den geografiske placering for  forskellige erhverv af fattige:
 Tyende, Syg og vanfør, Bonde uden jord, Tiggere, Almissemodtager, Aftægtsfolk/pensioneret og Uden erhverv
 
-Vi starter med at lave et nyt dataset, hvor vi isolerer erhvervskategorien "Tyende" fra aarhus_data. Derefter laver vi to søjlediagrammer for de tyende fra datasættet. Den første viser fordelingen i tyendes alder samt deres civilstand og den anden viser de tyendes geografiske placering samt kønsfordelingen.
+Vi starter med at lave et nyt dataset, hvor vi isolerer erhvervskategorien "Tyende" fra aarhus_data. Derefter laver vi to søjlediagrammer for de tyende fra datasættet. Det første viser fordelingen i tyendes alder og det andet viser de tyendes geografiske placering fordelt på sogn.
 
 ```{r}
 Tyende_data <- filter(aarhus_data,Erhvervskategori=="Tyende")
