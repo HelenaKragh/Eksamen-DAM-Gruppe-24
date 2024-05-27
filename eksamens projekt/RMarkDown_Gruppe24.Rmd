@@ -32,26 +32,26 @@ aarhus_census <- read.csv(here("data_fælles","dataset_clean.csv"))
 ```{r}
 aarhus_data <- aarhus_census %>%
 mutate(Erhvervskategori = case_when(
-erhverv %in% c("Geheime Raadjnde af Woyda", "Arbeyder i litteratur", "provst", "geheimeråd og stiftamtmand", "Baron, kammerherre og amtmand", "Præste enke", "Baronesse", "Bestyrer", "Grevinde og har 400 Rdr i Enke Pension", "Biskop", "Rådmand", "Betjent", "Billeteur", "Branddirektør", "Hendes Mand har fast Tjeneste", "Skolelærer", "Hospitalsforstander", "Cancellirådinde, - lever af det, hun har", "Candedatus Theologies", "Cappelan", "Consumptionsbetjent", "Contoirbetjent", "Degn", "Dommer", "Informator", "Inspecteur", "Enke Degn", "Enke Provstinde", "Etatsraadinde", "Jurist", "Sognepræst", "Kammerherre", "Kammerråd", "Foged", "Kornmåler", "Formuende", "Forpagter", "Landmaaler", "Lever af Formue", "Lever af sin Formue", "Forvalter", "Fuldmægtig", "stiftsphysicus", "stiftsrevisor", "Student", "Lægdsmand", "Læge", "Ved Landvæsenet", "Marqueur", "Told", "toldkasserer", "Organist") ~ "Embedsmænd mm.",
-erhverv%in% c("Apoteker", "Postmester, Kiøb- og Værtshusmusmand, Gæstgiver og prokurator", "Handler", "Brændevinsmand", "Købmand", "Værtshusmand") ~ "Købmænd",
-erhverv %in% c("Gartner", "Baber", "Bager", "Bagerenke", "Glarmester", "Rebslager", "Skoflikker", "Skomager", "Skrædder", "Håndværksmager", "Slagter", "Smed", "Snedker", "Kok", "Mester", "Teglbrænder") ~ "Håndværksmestre",
+erhverv %in% c("Geheime Raadjnde af Woyda", "Arbeyder i litteratur", "provst", "geheimeråd og stiftamtmand", "Baron, kammerherre og amtmand", "Præste enke", "Baronesse", "Bestyrer", "Grevinde og har 400 Rdr i Enke Pension", "Biskop", "Rådmand", "Betjent", "Billeteur", "Branddirektør", "Hendes Mand har fast Tjeneste", "Skolelærer", "Hospitalsforstander", "Cancellirådinde, - lever af det, hun har", "Candedatus Theologies", "Cappelan", "Consumptionsbetjent", "Contoirbetjent", "Degn", "Dommer", "Informator", "Inspecteur", "Enke Degn", "Enke Provstinde", "Etatsraadinde", "Jurist", "Sognepræst", "Kammerherre", "Kammerråd", "Foged", "Kornmåler", "Formuende", "Forpagter", "Landmaaler", "Lever af Formue", "Lever af sin Formue", "Forvalter", "Fuldmægtig", "stiftsphysicus", "stiftsrevisor", "Student", "Lægdsmand", "Læge", "Ved Landvæsenet", "Marqueur", "Told", "toldkasserer", "Organist") ~ "Embedsmand mm.",
+erhverv%in% c("Apoteker", "Postmester, Kiøb- og Værtshusmusmand, Gæstgiver og prokurator", "Handler", "Brændevinsmand", "Købmand", "Værtshusmand") ~ "Købmand",
+erhverv %in% c("Gartner", "Baber", "Bager", "Bagerenke", "Glarmester", "Rebslager", "Skoflikker", "Skomager", "Skrædder", "Håndværksmager", "Slagter", "Smed", "Snedker", "Kok", "Mester", "Teglbrænder") ~ "Håndværksmester",
 erhverv %in% c("Apotekerdreng", "Assistent", "Garver", "Skoleelev", "Giør Stoele", "Gjørtler", "Blegmand", "Blikkenslager", "Bogbinder", "Byens tambour", "Bødker", "Hugger", "I Lære", "Drejer", "Farver", "Favn Brænde Kiøer", "Mahler og Gartner", "Tømrer", "Svend") ~ "Svend eller i Lære",
-erhverv %in% c( "Gadekører", "Hjulmand", "klubvært", "Kromand", "Kudsk", "Forridder", "Vognmand", "Opvarterske for de syge") ~ "Avls- vogn og værtsmænd",
-erhverv %in% c("Skipper", "Fiskemester ved grevskabet Frijsenborg", "Fisker", "Lods", "Matros") ~ "Skippere, jægere, fiskere",
+erhverv %in% c( "Gadekører", "Hjulmand", "klubvært", "Kromand", "Kudsk", "Forridder", "Vognmand", "Opvarterske for de syge") ~ "Avls- vogn, værtsmand",
+erhverv %in% c("Skipper", "Fiskemester ved grevskabet Frijsenborg", "Fisker", "Lods", "Matros") ~ "Skipper, jæger, fisker",
 erhverv %in% c("Graver", "Arbejder ved Canalen", "Går med bagerkurven", "Spinder", "Rådstuebud", "Baademand", "Skovridder", "Hyrde", "Høker", "Skærsliber", "Jordemoder", "Examineret Foster Moder", "Kalkslager", "Klokker", "Stadsmusikant", "Krambodsdreng", "Stenkløver og -hugger, beboer et Markhuus, er Landeværnsmand", "Lever af at stampe Vadmel", "Fostermoder", "Stenpikker", "Lever af sit Arbejde", "Faar Løn", "strømpevæver", "Væver", "Vægter", "Volunteur", "Læser for Børn i Byen", "strøekone ved Domkirken", "Vaskekone", "Substitut", "Syerske", "Mejerske", "Tærsker", "Træskomand", "Natmand", "Trykker", "Tobaksspinder", "Nærer sig ved Haandarbejde") ~ "Ufaglært arbejder",
-erhverv %in% c("General Krigs Commisair, Rigs-Greve", "Skytte", "Rytter", "Soldat", "fhv. militærmand med årlig pension", "Overordnet Soldat") ~ "Militært personel",
+erhverv %in% c("General Krigs Commisair, Rigs-Greve", "Skytte", "Rytter", "Soldat", "fhv. militærmand med årlig pension", "Overordnet Soldat") ~ "Militærperson",
 erhverv %in% c("Afskediget", "Antagen til opdragelse", "Besvangret", "Enke", "Fattig", "formedels sin solgte gaard", "Ledig", "Lever af sine midler", "Opdrages i huset") ~ "Uden erhverv",
 erhverv %in% c("Rygter paa Gersdorrslund", "Huusholderske", "Stuekone", "Tyende", "Tjener Familie") ~ "Tyende",
-erhverv %in% c("Aftægtsfolk", "Pension", "Frit underholdt", "Logerende", "Understøtter Familiemedlem", "Understøttelse af Private", "Understøttelse af Familie", "nyder Ophold", "nyder Ophold af gaarden") ~ "Aftægtsfolk/pensionerede",
+erhverv %in% c("Aftægtsfolk", "Pension", "Frit underholdt", "Logerende", "Understøtter Familiemedlem", "Understøttelse af Private", "Understøttelse af Familie", "nyder Ophold", "nyder Ophold af gaarden") ~ "Aftægtsfolk/pensioneret",
 erhverv %in% c("Proprietair", "Har en Mølle i Fæste", "Boelsmand", "Bonde og Gaardbeboer", "Huusmand", "Huusmand med Jord", "Huusmand og andet Erhverv", "Enke med Jord", "Stamherre", "Møller") ~ "Bonde med jord",
 erhverv %in% c("Daglejer", "Inderste", "Jordløs Huusmand") ~ "Bonde uden jord",
-erhverv %in% c("Hospitalslem", "Vanvittig","Vanfør") ~ "Syge og vanføre",
-erhverv %in% c("Tigger") ~ "Tiggere",
+erhverv %in% c("Hospitalslem", "Vanvittig","Vanfør") ~ "Syg og vanfør",
+erhverv %in% c("Tigger") ~ "Tigger",
 erhverv %in% c("Nyder Almisse") ~ "Almissemodtager",
 
 famstand%in% c("Tyende") ~ "Tyende",
-grepl("opholds", famstand) ~ "Aftægtsfolk/pensionerede",
-grepl("Opholds", famstand) ~ "Aftægtsfolk/pensionerede",
+grepl("opholds", famstand) ~ "Aftægtsfolk/pensioneret",
+grepl("Opholds", famstand) ~ "Aftægtsfolk/pensioneret",
 
 
 TRUE ~ "Ukendt"
@@ -144,8 +144,8 @@ ggplot(count_data,aes(x=Erhvervskategori,y = percentage))+
 
 ```
 
-Vi vil gerne kigge bl.a. på alderen, cvilstanden og den geografiske placering for de forskellige erhverv af fattige:
-Tyende, Syge og vanføre, Bønder uden jord, Tiggere, Almissemodtagere, Aftægtsfolk/pensionerede, Arbejdsløse, Ufaglærte arbejdere og Svend eller i lære
+Vi vil gerne kigge bl.a. på alderen, cvilstanden og den geografiske placering for  forskellige erhverv af fattige:
+Tyende, Syg og vanfør, Bonde uden jord, Tiggere, Almissemodtager, Aftægtsfolk/pensioneret og Uden erhverv
 
 Vi starter med at lave et nyt dataset, hvor vi isolerer erhvervskategorien "Tyende" fra aarhus_data. Derefter laver vi to søjlediagrammer for de tyende fra datasættet. Den første viser fordelingen i tyendes alder samt deres civilstand og den anden viser de tyendes geografiske placering samt kønsfordelingen.
 
@@ -154,15 +154,15 @@ Tyende_data <- filter(aarhus_data,Erhvervskategori=="Tyende")
 
 #Alder og civilstand
 ggplot(Tyende_data,aes(alder))+
-  geom_bar(aes(fill = civilstand))+
+  geom_bar()+
   theme(axis.text = element_text(angle = -90))+
-   labs(title = "Tyendes fordeling i alder og civilstand")
+   labs(title = "Tyendes fordeling i alder")
 
 #Geografisk placering og køn
 ggplot(Tyende_data,aes(sogn))+
-  geom_bar(aes(fill = koen))+
+  geom_bar()+
   theme(axis.text = element_text(angle = -90))+
-   labs(title = "Tyendes fordeling i sogn og køn")
+   labs(title = "Tyendes fordeling i sogn")
     
 ```
 
@@ -172,14 +172,14 @@ Vi gør det samme med Syge og vanføre. Her er det også interessant at kigge p�
 
 
 ```{r}
-Sygeogvanføre_data <- filter(aarhus_data,Erhvervskategori=="Syge og vanføre")
-#Alder og civilstand
-ggplot(Sygeogvanføre_data,aes(alder))+
-  geom_bar(aes(fill = civilstand))+
+Sygogvanfør_data <- filter(aarhus_data,Erhvervskategori=="Syg og vanfør")
+#Alder og erhverv
+ggplot(Sygogvanfør_data,aes(alder))+
+  geom_bar()+
   theme(axis.text = element_text(angle = -90))+
-   labs(title = "Syge og vanføres fordeling i alder og civilstand")
+   labs(title = "Syge og vanføres fordeling i alder")
 #Geografisk placering og erhverv
-ggplot(Sygeogvanføre_data,aes(sogn))+
+ggplot(Sygogvanfør_data,aes(sogn))+
   geom_bar(aes(fill = erhverv))+
   theme(axis.text = element_text(angle = -90))+
   labs(title = "Syge og vanføres fordeling i sogn og erhverv")
@@ -189,11 +189,11 @@ Bønder uden jord:
 
 ```{r}
 Bonde_u_jord <- filter(aarhus_data,Erhvervskategori=="Bonde uden jord")
-#Alder og civilstand
+#Alder
 ggplot(Bonde_u_jord,aes(alder))+
-  geom_bar(aes(fill = civilstand))+
+  geom_bar()+
 theme(axis.text = element_text(angle = -90))+
-  labs(title = "Bønder uden jords fordeling i alder og civilstand")
+  labs(title = "Bønder uden jords fordeling i alder")
 #Geografisk placering
 ggplot(Bonde_u_jord,aes(sogn))+
   geom_bar()+
@@ -202,35 +202,17 @@ ggplot(Bonde_u_jord,aes(sogn))+
 
 ```
 
-Tiggere:
 
-```{r}
-Tigger_data <- filter(aarhus_data,Erhvervskategori=="Tiggere")
-#Alder og civilstand
-ggplot(Tigger_data,aes(alder))+
-  geom_bar(aes(fill = civilstand))+
-  labs(title = "Tiggeres fordeling i alder og civilstand")
-#Geografisk placering
-ggplot(Tigger_data,aes(sogn))+
-  geom_bar(aes(fill = koen))+
-  labs(title = "Tiggeres fordeling i sogn og køn")
-```
 
 Almissemodtagere: Her laver vi også et diagram med alder og køn
 
 ```{r}
-Almissemodtager_data <- filter(aarhus_data,Erhvervskategori=="Almissemodtager")
-#Alder og civilstand
+Almissemodtager_data_data <- filter(aarhus_data,Erhvervskategori=="Almissemodtager")
+#Alder 
 ggplot(Almissemodtager_data,aes(alder))+
-  geom_bar(aes(fill = civilstand))+
+  geom_bar()+
   theme(axis.text = element_text(angle = -90))+
-  labs(title = "Almissemodtageres fordeling i alder og civilstand")
-
-#Alder og Køn
-ggplot(Almissemodtager_data,aes(alder))+
-  geom_bar(aes(fill = koen))+
-  theme(axis.text = element_text(angle = -90))+
-  labs(title = "Almissemodtageres fordeling i alder og køn")
+  labs(title = "Almissemodtageres fordeling i alder")
 
 #Geografisk placering
 ggplot(Almissemodtager_data,aes(sogn))+
@@ -242,81 +224,39 @@ ggplot(Almissemodtager_data,aes(sogn))+
 Aftægtsfolk/pensionerede: Her laver vi også et diagram med alder og køn
 
 ```{r}
-Aftægt_data <- filter(aarhus_data,Erhvervskategori=="Aftægtsfolk/pensionerede")
-#Alder og civilstand
+Aftægt_data <- filter(aarhus_data,Erhvervskategori=="Aftægtsfolk/pensioneret")
+#Alder
 ggplot(Aftægt_data,aes(alder))+
-  geom_bar(aes(fill = civilstand))+
+  geom_bar()+
   theme(axis.text = element_text(angle = -90))+
-  labs(title = "Aftægtsfolk/pensioneredes fordeling i alder og civilstand")
-#Alder og køn
-ggplot(Aftægt_data,aes(alder))+
-  geom_bar(aes(fill = koen))+
-  theme(axis.text = element_text(angle = -90))+
-  labs(title = "Aftægtsfolk/pensioneredes fordeling i alder og køn")
-#Geografisk placering og erhverv
-ggplot(Aftægt_data,aes(sogn))+
-  geom_bar(aes(fill = erhverv))+
-  theme(axis.text = element_text(angle = -90))+
-  labs(title = "Aftægtsfolk/pensioneredes fordeling i sogn og erhverv")
+  labs(title = "Aftægtsfolk/pensioneredes fordeling i alder")
 
+#Geografisk placering
+ggplot(Aftægt_data,aes(sogn))+
+  geom_bar()+
+  theme(axis.text = element_text(angle = -90))+
+  labs(title = "Aftægtsfolk/pensioneredes fordeling i sogn")
 ```
 
 Arbejdsløse:
 
 ```{r}
 Uden_erhverv_data <- filter(aarhus_data,Erhvervskategori=="Uden erhverv")
-#Alder og civilstand
+#Alder og erhverv
 ggplot(Uden_erhverv_data,aes(alder))+
   geom_bar(aes(fill = erhverv))+
   labs(title = "Arbejdsløses fordeling i alder og erhverv")
-#Alder og køn
-ggplot(Uden_erhverv_data,aes(alder))+
-  geom_bar(aes(fill = koen))+
-  theme(axis.text = element_text(angle = -90))+
-  labs(title = "Arbejdsløses fordeling i alder og koen")
-#Geografisk placering og civilstand
+
+#Geografisk placering 
 ggplot(Uden_erhverv_data,aes(sogn))+
-  geom_bar(aes(fill = civilstand))+
+  geom_bar()+
 theme(axis.text = element_text(angle = -90))+
-  labs(title = "Arbejdsløses fordeling i sogn og civilstand")
+  labs(title = "Arbejdsløses fordeling i sogn")
 
 ```
 
-Ufaglærte arbejdere: også med et digram med alder og køn
 
-```{r}
-Ufaglært_arbejder_data <- filter(aarhus_data,Erhvervskategori=="Ufaglært arbejder")
-#Alder og civilstand
-ggplot(Ufaglært_arbejder_data,aes(alder))+
-  geom_bar(aes(fill=civilstand))+
-  theme(axis.text = element_text(angle = -90))+
-  labs(title = "Ufaglærtes fordeling i alder og civilstand")
-#Alder og køn
-ggplot(Ufaglært_arbejder_data,aes(alder))+
-  geom_bar(aes(fill = koen))+
-  theme(axis.text = element_text(angle = -90))+
-  labs(title = "Ufaglærtes fordeling i alder og køn")
-#Geografisk placering
-ggplot(Ufaglært_arbejder_data,aes(sogn))+
-  geom_bar()+
-  theme(axis.text = element_text(angle = -90))+
-  labs(title = "Ufaglærtes fordeling i sogn")
-```
 
-Svend eller i lære:
-
-```{r}
-Svend_lære_data <- filter(aarhus_data,Erhvervskategori=="Svend eller i Lære")
-#Alder og civilstand
-ggplot(Svend_lære_data,aes(alder))+
-  geom_bar(aes(fill = civilstand))+
-  labs(title = "Svend eller i læres fordeling i alder og civilstand")
-#Geografisk placering
-ggplot(Svend_lære_data,aes(sogn))+
-  geom_bar()+
-  theme(axis.text = element_text(angle = -90))+
-  labs(title = "Svend eller i læres fordeling i sogn")
-```
 
 
 # Klargøring til at lave kort
