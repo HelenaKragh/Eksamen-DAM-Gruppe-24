@@ -144,6 +144,16 @@ ggplot(count_data,aes(x=Erhvervskategori,y = percentage))+
 
 ```
 
+Fordeling af respondenter på tværs af sogn:
+```{r}
+ggplot(aarhus_data,aes(sogn))+
+  geom_bar()+
+  theme(axis.text = element_text(angle = -90))+
+   labs(title = "Fordeling af respondenter på tværs af sogn")
+```
+
+
+
 Vi vil gerne kigge bl.a. på alderen, cvilstanden og den geografiske placering for  forskellige erhverv af fattige:
 Tyende, Syg og vanfør, Bonde uden jord, Tiggere, Almissemodtager, Aftægtsfolk/pensioneret og Uden erhverv
 
