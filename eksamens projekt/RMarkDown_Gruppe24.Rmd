@@ -149,7 +149,7 @@ Fordeling af respondenter på tværs af sogn:
 ggplot(aarhus_data,aes(sogn))+
   geom_bar()+
   theme(axis.text = element_text(angle = -90))+
-   labs(title = "Fordeling af respondenter på tværs af sogn")
+   labs(title = "Fordeling af respondenter på tværs af sogn",y="Antal respondenter")
 ```
 
 
@@ -166,13 +166,13 @@ Tyende_data <- filter(aarhus_data,Erhvervskategori=="Tyende")
 ggplot(Tyende_data,aes(alder))+
   geom_bar()+
   theme(axis.text = element_text(angle = -90))+
-   labs(title = "Tyendes fordeling i alder")
+   labs(title = "Tyendes fordeling i alder",y="Antal tyende")
 
 #Geografisk placering og køn
 ggplot(Tyende_data,aes(sogn))+
   geom_bar()+
   theme(axis.text = element_text(angle = -90))+
-   labs(title = "Tyendes fordeling i sogn")
+   labs(title = "Tyendes fordeling i sogn",y="Antal tyende")
     
 ```
 
@@ -187,12 +187,12 @@ Sygogvanfør_data <- filter(aarhus_data,Erhvervskategori=="Syg og vanfør")
 ggplot(Sygogvanfør_data,aes(alder))+
   geom_bar()+
   theme(axis.text = element_text(angle = -90))+
-   labs(title = "Syge og vanføres fordeling i alder")
+   labs(title = "Syge og vanføres fordeling i alder",y="Antal syge og vanføre")
 #Geografisk placering og erhverv
 ggplot(Sygogvanfør_data,aes(sogn))+
   geom_bar(aes(fill = erhverv))+
   theme(axis.text = element_text(angle = -90))+
-  labs(title = "Syge og vanføres fordeling i sogn og erhverv")
+  labs(title = "Syge og vanføres fordeling i sogn og erhverv",y="Antal syge og vanføre")
 ```
 
 Bønder uden jord:
@@ -203,18 +203,18 @@ Bonde_u_jord <- filter(aarhus_data,Erhvervskategori=="Bonde uden jord")
 ggplot(Bonde_u_jord,aes(alder))+
   geom_bar()+
 theme(axis.text = element_text(angle = -90))+
-  labs(title = "Bønder uden jords fordeling i alder")
+  labs(title = "Bønder uden jords fordeling i alder",y="Antal bønder uden jord")
 #Geografisk placering
 ggplot(Bonde_u_jord,aes(sogn))+
   geom_bar()+
   theme(axis.text = element_text(angle = -90))+
-  labs(title = "Bønder uden jords fordeling i sogn")
+  labs(title = "Bønder uden jords fordeling i sogn",y="Antal bønder uden jord")
 
 ```
 
 
 
-Almissemodtagere: Her laver vi også et diagram med alder og køn
+Almissemodtagere:
 
 ```{r}
 Almissemodtager_data_data <- filter(aarhus_data,Erhvervskategori=="Almissemodtager")
@@ -222,16 +222,16 @@ Almissemodtager_data_data <- filter(aarhus_data,Erhvervskategori=="Almissemodtag
 ggplot(Almissemodtager_data,aes(alder))+
   geom_bar()+
   theme(axis.text = element_text(angle = -90))+
-  labs(title = "Almissemodtageres fordeling i alder")
+  labs(title = "Almissemodtageres fordeling i alder",y="Antal almissemodtagere")
 
 #Geografisk placering
 ggplot(Almissemodtager_data,aes(sogn))+
   geom_bar()+
   theme(axis.text = element_text(angle = -90))+
-  labs(title = "Almissemodtageres fordeling i sogn")
+  labs(title = "Almissemodtageres fordeling i sogn",y="Antal almissemodtagere")
 ```
 
-Aftægtsfolk/pensionerede: Her laver vi også et diagram med alder og køn
+Aftægtsfolk/pensionerede:
 
 ```{r}
 Aftægt_data <- filter(aarhus_data,Erhvervskategori=="Aftægtsfolk/pensioneret")
@@ -239,13 +239,13 @@ Aftægt_data <- filter(aarhus_data,Erhvervskategori=="Aftægtsfolk/pensioneret")
 ggplot(Aftægt_data,aes(alder))+
   geom_bar()+
   theme(axis.text = element_text(angle = -90))+
-  labs(title = "Aftægtsfolk/pensioneredes fordeling i alder")
+  labs(title = "Aftægtsfolk/pensioneredes fordeling i alder",y="Antal aftægtsfolk/pensionerede")
 
 #Geografisk placering
 ggplot(Aftægt_data,aes(sogn))+
   geom_bar()+
   theme(axis.text = element_text(angle = -90))+
-  labs(title = "Aftægtsfolk/pensioneredes fordeling i sogn")
+  labs(title = "Aftægtsfolk/pensioneredes fordeling i sogn",y="Antal aftægtsfolk/pensionerede")
 ```
 
 Arbejdsløse:
@@ -255,13 +255,13 @@ Uden_erhverv_data <- filter(aarhus_data,Erhvervskategori=="Uden erhverv")
 #Alder og erhverv
 ggplot(Uden_erhverv_data,aes(alder))+
   geom_bar(aes(fill = erhverv))+
-  labs(title = "Arbejdsløses fordeling i alder og erhverv")
+  labs(title = "Arbejdsløses fordeling i alder og erhverv",y="Antal arbejdsløse")
 
 #Geografisk placering 
 ggplot(Uden_erhverv_data,aes(sogn))+
   geom_bar()+
 theme(axis.text = element_text(angle = -90))+
-  labs(title = "Arbejdsløses fordeling i sogn")
+  labs(title = "Arbejdsløses fordeling i sogn",y="Antal arbejdsløse")
 
 ```
 
