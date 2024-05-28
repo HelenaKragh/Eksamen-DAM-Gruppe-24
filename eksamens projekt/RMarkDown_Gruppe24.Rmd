@@ -6,8 +6,8 @@ output: html_document
 ---
 
 
-```{r setup, echo=FALSE}
-knitr::opts_chunk$set(echo = TRUE)
+```{r setup, echo=FALSE, message=FALSE}
+
 
 #dir.create("data")
 #install.packages("tidyverse")
@@ -86,7 +86,7 @@ for (i in 2:nrow(aarhus_data)) {
 Nu hvor vores "Erhvervskategori" kolonne er klar kan vi begynde på visualiseringer. Først vil vi gerne se hvordan procentfordelingen er mellem kønnene i forskellige erhvervsgrupper. For at gøre dette bliver vi nød til at lave en ny dataframe, "procent_køn_erhverv", hvor vi inkluderer "koen" og "Erhvervskategori" kolonnerne og ud fra disse muterer vi en ny kolonne, "koen_procent", som inkluderer procentfordelingen. Nu kan vi bruge ggplot pakken og "procent_køn_erhverv" dataframen til at skabe et stabelsøjlediagram med procentfordelingen af køn på tværs af erhvervskategorier.
 
 
-```{r, echo=FALSE}
+```{r}
 procent_køn_erhverv <- aarhus_data %>%
   filter(koen != "") %>% 
   count(koen, Erhvervskategori) %>% 
@@ -252,7 +252,7 @@ ggplot(Aftægt_data,aes(sogn))+
 
 Vi kunne godt tænke os at lave et interraktivt kort hvor man på ved at klikke på popups ved de forskellige sogn kan se et søjlediagram med procentfordelingen af erhvervskategorier i det pågældende sogn. For at gøre det bliver vi nød til at have koordinater for alle 113 sogn som forekommer i datasættet. Derfor lavede vi en excel-fil med tre kolonner: "sogn", "latitude" og "longitude". Vi hentede koordinater for alle de gamle sognekirker på google maps og tastede dem ind i denne excel-fil og lagde den så ind i vores datamappe i Rmd-filen. Fra denne excel-fil lavede vi dataframen "Koordinater" hvor "latitude" og "longitude" kolonnerne også blev konverteret til numeriske værdier. Derudover lavede vi endnu en dataframe "Aarhus_data_K", magen til "aarhus_data". Ved hjælp af left_join funktionen kunne vi indsætte de rigtige "latitude" og "longitude" kolonnerne fra "Koordinater" ind i "Aarhus_data_K" ud for de rigtige sogn. 
 
-```{r, include=TRUE, warning=FALSE}
+```{r, warning=FALSE}
 Koordinater <- readxl::read_excel (here("data_fælles","Sogn_koordinater_1.xlsx"),                                      col_types = c("text", "numeric", "numeric"))
 
 
@@ -309,7 +309,7 @@ Koordinater[72,1] <-  "Skanderborg Købstad"
 
 # forlooping over 113 parishes
 
-Nu skal vi bruge forlooping funktionen til at lave et standardiseret stykke kode til at skabe diagram til alle sogn. Her bruges "parish" som placeholder for det pågældende sogn som forloopingen skal lave et diagram til.
+Nu bruger vi forlooping funktionen til at lave et standardiseret stykke kode til at skabe diagram til alle sogn. Her bruges "parish" som placeholder for det pågældende sogn som forloopingen skal lave et diagram til.
 
 For at vi kan knytte sognene som de skal stå i diagrammerne til sognenavnene som de skal forekomme i diagrammerne. For at gøre dette laver vi først en dataframe, "parish_filename_relation", med en kolonne til filnavnformatet (små bogstaver og ingen danske tegn) og standardnavnformatet (Store forbogstaver og danske tegn).
 
@@ -317,7 +317,7 @@ Koden fungerer nøjagtig ligesom det ovenstående eksempel med Alrø, udover at 
 
 Derudover har vi også brugt str_replace- og regex funktionerne til at erstatte alle danske symboler med internationale symboler og omdanne alle store bogstaver til små bogstaver når filnavnene på de printede billeder dannes.
 
-```{r, include=FALSE, message=FALSE}
+```{r, message=FALSE}
 
 parish_filename_relation <- tibble(sogn = character(), fil = character())
 
@@ -391,7 +391,7 @@ parish_filename_relation <- parish_filename_relation %>%
 
 ```
 
-Vi tilføjer de rigtige grafer til de rigtige sogn/koordinater
+Vi tilføjer de rigtige grafer til de rigtige sogn/koordinater ved hjælp af "parish_filename_relation" dataframen som vi skabte i det ovenstående kode.
 
 ```{r}
 
@@ -401,11 +401,7 @@ Koordinater <- Koordinater %>%
 
 ```
 
-
- 
-# popup med png-filer
-#link til GitHub Repositori med png-filer 
- 
+Vi tilføjer endnu en kolonne, "img_link" til "Koordinater" dataframen med links til hvert sogns diagram på github 
 
 ```{r}
 
@@ -415,9 +411,7 @@ Koordinater <- Koordinater %>%
 
 ```
 
-
-tilføjelse af "billede" af graf til popup
- 
+ Vi ændrer nu på den tidligere skabte kolonne "content_popup" som bestemmer indholdet i de popups som skal forekomme på vores kort. Nu inkluderer den også link til diagrammet som skal vises ved popup'en ved hjælp af "img_link" kolonnen som vi skabte i chunken ovenfor
 
 ```{r}
 
@@ -427,6 +421,7 @@ Koordinater <- Koordinater %>%
 
 ```
 
+Og til sidst kan vi med leaflet funktionen skabe kortet med popups til alle sogn og med alle tilhørende søjlediagrammer vedhæftet. Vi kan nu let se hvordan erhvervsfordelingen har set ud for et pågældende sogn i Aarhus Amt.
 
 ```{r}
 Koordinater %>% 
