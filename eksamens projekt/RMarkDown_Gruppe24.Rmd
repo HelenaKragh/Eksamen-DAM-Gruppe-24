@@ -63,7 +63,9 @@ TRUE ~ "Ukendt"
 <<<<<<< HEAD
 ```{r}
 for (i in 2:nrow(aarhus_data)) {
-  if(aarhus_data$famstand[i] == "Hans Kone" && aarhus_data$Erhvervskategori[i-1]== "Bonde med jord"){
+  if(aarhus_data$famstand[i] == "Hans Kone" &&
+     is.na(aarhus_data$Erhvervskategori[i])
+     && aarhus_data$Erhvervskategori[i-1]== "Bonde med jord"){
   aarhus_data$Erhvervskategori[i]<- 
     paste(aarhus_data$Erhvervskategori[i-1])
   }
@@ -72,7 +74,9 @@ for (i in 2:nrow(aarhus_data)) {
 
 ```{r}
 for (i in 2:nrow(aarhus_data)) {
-  if(aarhus_data$famstand[i] == "Hans Kone" && aarhus_data$Erhvervskategori[i-1]== "Bonde uden jord"){
+  if(aarhus_data$famstand[i] == "Hans Kone" &&
+     is.na(aarhus_data$Erhvervskategori[i]) 
+     && aarhus_data$Erhvervskategori[i-1]== "Bonde uden jord"){
   aarhus_data$Erhvervskategori[i]<- 
     paste(aarhus_data$Erhvervskategori[i-1])
   }
@@ -183,7 +187,7 @@ Vi gør det samme med den anden store kategori af fattige: Bønder uden jord:
 Bonde_u_jord <- filter(aarhus_data,Erhvervskategori=="Bonde uden jord")
 #Alder
 ggplot(Bonde_u_jord,aes(alder))+
-  geom_bar()+
+  geom_bar(aes(fill = erhverv))+
 theme(axis.text = element_text(angle = -90))+
   labs(title = "Bønder uden jords fordeling i alder",y="Antal bønder uden jord")
 #Geografisk placering
