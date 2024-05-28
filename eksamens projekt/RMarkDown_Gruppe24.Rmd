@@ -216,7 +216,7 @@ ggplot(Sygogvanfør_data,aes(sogn))+
 Almissemodtagere:
 
 ```{r}
-Almissemodtager_data_data <- filter(aarhus_data,Erhvervskategori=="Almissemodtager")
+Almissemodtager_data <- filter(aarhus_data,Erhvervskategori=="Almissemodtager")
 #Alder 
 ggplot(Almissemodtager_data,aes(alder))+
   geom_bar()+
@@ -252,18 +252,11 @@ ggplot(Aftægt_data,aes(sogn))+
 
 
 
-
-
-
-
 # Klargøring til at lave kort
 
 
-```{r, include=FALSE, warning=FALSE}
+```{r, include=TRUE, warning=FALSE}
 Koordinater <- readxl::read_excel (here("data_fælles","Sogn_koordinater_1.xlsx"),                                      col_types = c("text", "numeric", "numeric"))
-
-View(Koordinater)
-
 
 
 Aarhus_data_K <- aarhus_data
