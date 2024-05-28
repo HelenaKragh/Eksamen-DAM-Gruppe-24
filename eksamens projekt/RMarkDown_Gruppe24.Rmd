@@ -27,7 +27,7 @@ library(readxl)
 
 aarhus_census <- read.csv(here("data_fælles","dataset_clean.csv"))
 ```
-
+Før vi kan begynde at producere nogle visualiseringer til analyse vil vi skabe kolonnen "Erhvervskategori" som vil blive brugt til at gøre vores diagrammer mere overskuelige. Til dette formål bruger vi mutate funktionen til at skabe kolonnen og case_when funktionen til at diktere hvilke erhverv der tilhører hvilke erhvervskategorier.
 
 ```{r}
 aarhus_data <- aarhus_census %>%
@@ -58,9 +58,8 @@ TRUE ~ "Ukendt"
 
 ))
 ```
+I datasættet er mange kvinder på landet efterladt blanke i "erhverv" kolonnen. I perioden var det ofte indforstået at kvindes erhverv på landet var knyttet til hendes husbond. Derfor sørger vi også for at alle kvinder med værdien "Hans Kone" i "famstand" kolonnen automatisk får samme værdi som sin ovenstående husbond, såfremt denne værdi enten er "Bonde med jord" eller "Bonde uden jord
 
-
-<<<<<<< HEAD
 ```{r}
 for (i in 2:nrow(aarhus_data)) {
   if(aarhus_data$famstand[i] == "Hans Kone"
@@ -69,9 +68,7 @@ for (i in 2:nrow(aarhus_data)) {
     paste(aarhus_data$Erhvervskategori[i-1])
   }
   }
-```
 
-```{r}
 for (i in 2:nrow(aarhus_data)) {
   if(aarhus_data$famstand[i] == "Hans Kone"
      && aarhus_data$Erhvervskategori[i-1]== "Bonde uden jord"){
