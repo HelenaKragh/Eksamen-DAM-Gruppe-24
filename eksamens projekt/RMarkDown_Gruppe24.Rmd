@@ -27,6 +27,9 @@ library(readxl)
 
 aarhus_census <- read.csv(here("data_fælles","dataset_clean.csv"))
 ```
+
+# Forberedelse af datasættet
+
 Før vi kan begynde at producere nogle visualiseringer til analyse vil vi skabe kolonnen "Erhvervskategori" som vil blive brugt til at gøre vores diagrammer mere overskuelige. Til dette formål bruger vi mutate funktionen til at skabe kolonnen og case_when funktionen til at diktere hvilke erhverv der tilhører hvilke erhvervskategorier.
 
 ```{r}
@@ -58,7 +61,7 @@ TRUE ~ "Ukendt"
 
 ))
 ```
-I datasættet er mange kvinder på landet efterladt blanke i "erhverv" kolonnen. I perioden var det ofte indforstået at kvindes erhverv på landet var knyttet til hendes husbond. Derfor sørger vi også for at alle kvinder med værdien "Hans Kone" i "famstand" kolonnen automatisk får samme værdi som sin ovenstående husbond, såfremt denne værdi enten er "Bonde med jord" eller "Bonde uden jord
+I datasættet er mange kvinder på landet efterladt blanke i "erhverv" kolonnen. I perioden var det ofte indforstået at kvindes erhverv på landet var knyttet til hendes husbond. Derfor sørger vi også for at alle kvinder med værdien "Hans Kone" i "famstand" kolonnen automatisk får samme værdi i "Erhvervskategori" som sin ovenstående husbond, såfremt denne værdi enten er "Bonde med jord" eller "Bonde uden jord".
 
 ```{r}
 for (i in 2:nrow(aarhus_data)) {
@@ -78,8 +81,10 @@ for (i in 2:nrow(aarhus_data)) {
   }
 ```
 
+# Stabelsøjlediagrammer med procentfordeling af køn og civilstand over erhvervskategorier
 
-# Grafer over fordeling af køn på erhverv
+Nu hvor vores "Erhvervskategori" kolonne er klar kan vi begynde på visualiseringer. Først vil vi gerne se hvordan procentfordelingen er mellem kønnene i forskellige erhvervsgrupper. For at gøre dette bliver vi nød til at lave en ny dataframe, "procent_køn_erhverv", hvor vi inkluderer "koen" og "Erhvervskategori" kolonnerne og ud fra disse muterer vi en ny kolonne, "koen_procent", som inkluderer procentfordelingen. Nu kan vi bruge ggplot pakken og "procent_køn_erhverv" dataframen til at skabe et stabelsøjlediagram med procentfordelingen af køn på tværs af erhvervskategorier.
+
 
 ```{r, echo=FALSE}
 procent_køn_erhverv <- aarhus_data %>%
@@ -99,8 +104,7 @@ procent_køn_erhverv %>%
        y = "Procent")
 ```
 
-
-# Civilstand fordeling på erhverv
+Ligeledes vil vi gerne have en magen til visualisering bare med procentfordeling af civilstand i stedet for køn over erhvervskategorier. Samme metode som ved ovenstående visualisering bliver brugt bare hvor "koen" overalt i koden erstattes af "civilstand"
 
 ```{r}
 procent_civilstand_erhverv <- aarhus_data %>% 
@@ -244,13 +248,9 @@ ggplot(Aftægt_data,aes(sogn))+
   labs(title = "Aftægtsfolk/pensioneredes fordeling i sogn",y="Antal aftægtsfolk/pensionerede")
 ```
 
+# Forberedelse til at lave kort
 
-
-
-
-
-# Klargøring til at lave kort
-
+Vi kunne godt tænke os at lave et interraktivt kort hvor man på ved at klikke på popups ved de forskellige sogn kan se et søjlediagram med procentfordelingen af erhvervskategorier i det pågældende sogn. For at gøre det bliver vi nød til at have koordinater for alle 113 sogn som forekommer i datasættet. Derfor lavede vi en excel-fil med tre kolonner: "sogn", "latitude" og "longitude". Vi hentede koordinater for alle de gamle sognekirker på google maps og tastede dem ind i denne excel-fil og lagde den så ind i vores datamappe i Rmd-filen. Fra denne excel-fil lavede vi dataframen "Koordinater" hvor "latitude" og "longitude" kolonnerne også blev konverteret til numeriske værdier. Derudover lavede vi endnu en dataframe "Aarhus_data_K", magen til "aarhus_data". Ved hjælp af left_join funktionen kunne vi indsætte de rigtige "latitude" og "longitude" kolonnerne fra "Koordinater" ind i "Aarhus_data_K" ud for de rigtige sogn. 
 
 ```{r, include=TRUE, warning=FALSE}
 Koordinater <- readxl::read_excel (here("data_fælles","Sogn_koordinater_1.xlsx"),                                      col_types = c("text", "numeric", "numeric"))
