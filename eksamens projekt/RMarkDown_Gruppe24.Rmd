@@ -260,15 +260,9 @@ Aarhus_data_K <- aarhus_data
 Aarhus_data_K <-  left_join(aarhus_data, Koordinater, by = "sogn")
 ```
 
-# Kortet bliver lavet
+# Data til popups bliver skabt
 
-1) Første step er at indlæse library "leaflet", som er R-studios kortfunktion, og library(readxl), for at kunne indlæse excelfilen
-
-2) Dernæst indlæses dataen indeholdende koordinaterne til hvert sogn. 
-
-3) Vi vil af med videnskabelig notation, da koordinaterne skal være numerisk noteret, og da de i processen ved indlæsningen blev "usunde" i vores dataframe. 
-
-4) Nu plotter vi vores leafletkort med markers, der fortæller navnet på sognet og informationer fra en ny kolonne i dataframet kaldet "content": 
+Nu indlæser vi koordinaterne til hvert sogn som vores popups på kortet skal have. Hertil tilføjer vi kolonnen "content_popup" som fortæller navnet på sognet som skal forekomme i popup'en
 
 ```{r}
 Koordinater <- Koordinater %>% 
@@ -276,15 +270,13 @@ Koordinater <- Koordinater %>%
   
 ```
 
-5) Nu plotter vi kortet:
+Her vises et eksempel på hvordan vi danner et søjlediagram der viser procentfordelingen af erhvervskategorier for et sogn. I dette eksempel er sognet Alrø. Først dannes en ny dataframe, "procent_alrø_erhverv" som kun inkluderer de observationer fra "aarhus_data" med Alrø som sogn og kun har "Erhvervskategori" som yderligere kolonne.
 
+Denne dataframe bruges så til at lave endnu en dataframe, "procent_alrø_erhverv" hvor vi udregner procentfordelingen for erhverv i Alrø og runder procentværdien til 2 decimaler.
 
-# Eksempel på skabelse af graf m erhvervsfodeling i sognet
+Denne dataframe bruges så til at lave diagrammet med procentfordelingen ved hjælp af ggplot pakken. Herefter gemmes denne visualisering som .png-fil i vores "graphics" mappe i Rmd-filen.
 
 ```{r}
-
-
-#graf sogn og erhverv
 
 procent_alrø_erhverv <- aarhus_data %>% 
   filter(sogn == "Alrø") %>% 
@@ -307,8 +299,7 @@ alroe_erhverv_graf <- procent_alrø_erhverv %>%
 ggsave(alroe_erhverv_graf, filename = "graphics/sogn_graphics/alroe.png", device = png, width = 20, height = 15, units = "cm" )
 ```
 
-
-# Vi retter problematiske navne i koordinater-tibble
+Før vi kan forsøge at standardiserer denne kode til at kunne køre automatisk ved alle sogn bliver vi nød til at ændre værdierne i nogle problematiske celler i "sogn" kolonnen i "Koordinater" dataframen. Dette gør vi så de kan læses af koden nedenunder.
 
 ```{r}
 Koordinater[112,1] <- "Århus Købstad"
@@ -317,7 +308,14 @@ Koordinater[72,1] <-  "Skanderborg Købstad"
 ```
 
 # forlooping over 113 parishes
-# tilføjelse af sogn-navne med små forbogstaver og uden danske bogstaver 
+
+Nu skal vi bruge forlooping funktionen til at lave et standardiseret stykke kode til at skabe diagram til alle sogn. Her bruges "parish" som placeholder for det pågældende sogn som forloopingen skal lave et diagram til.
+
+For at vi kan knytte sognene som de skal stå i diagrammerne til sognenavnene som de skal forekomme i diagrammerne. For at gøre dette laver vi først en dataframe, "parish_filename_relation", med en kolonne til filnavnformatet (små bogstaver og ingen danske tegn) og standardnavnformatet (Store forbogstaver og danske tegn).
+
+Koden fungerer nøjagtig ligesom det ovenstående eksempel med Alrø, udover at paste funktionen nogle steder bliver benyttet til automatisk at indsætte det relevante sognenavn eksempelvis når titlen på diagrammet skal dannes eller filnavnet på den .png-filen bestemmes.
+
+Derudover har vi også brugt str_replace- og regex funktionerne til at erstatte alle danske symboler med internationale symboler og omdanne alle store bogstaver til små bogstaver når filnavnene på de printede billeder dannes.
 
 ```{r, include=FALSE, message=FALSE}
 
