@@ -317,7 +317,7 @@ Koden fungerer nøjagtig ligesom det ovenstående eksempel med Alrø, udover at 
 
 Derudover har vi også brugt str_replace- og regex funktionerne til at erstatte alle danske symboler med internationale symboler og omdanne alle store bogstaver til små bogstaver når filnavnene på de printede billeder dannes.
 
-```{r}
+```{r, message=FALSE}
 
 parish_filename_relation <- tibble(sogn = character(), fil = character())
 
